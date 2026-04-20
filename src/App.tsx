@@ -14,7 +14,6 @@ import './App.css'
 import type {
   DashboardData,
   LostContractRecord,
-  MetricGroup,
   MonthlyComparisonRecord,
   OpportunityRecord,
   ScreenKey,
@@ -36,9 +35,12 @@ const SCREEN_OPTIONS: Array<{ key: ScreenKey; label: string }> = [
   { key: 'losses', label: 'Потери и возможности' },
 ]
 
+type ChartViewMode = 'all' | 'income' | 'expense'
+
 const COLOR_PLAN = '#2563eb'
 const COLOR_FACT = '#16a34a'
 const COLOR_EXPENSE = '#ea580c'
+const COLOR_FACT_EXPENSE = '#0f766e'
 
 function App() {
   const [data, setData] = useState<DashboardData | null>(null)
@@ -69,7 +71,7 @@ function App() {
         const weekOptions = uniqueSorted(payload.weeklySummary.map((item) => item.week_date))
         setMonthStart(0)
         setMonthEnd(Math.max(0, monthOptions.length - 1))
-        setWeekStart(Math.max(0, weekOptions.length - 8))
+        setWeekStart(0)
         setWeekEnd(Math.max(0, weekOptions.length - 1))
       })
       .catch((error) => {
@@ -212,10 +214,16 @@ function OperationalScreen(props: {
   onWeekStartChange: (value: string) => void
   onWeekEndChange: (value: string) => void
 }) {
+  const [chartMode, setChartMode] = useState<ChartViewMode>('all')
   const incomeItems = props.items.filter((item) => item.metric_group === 'income')
   const expenseItems = props.items.filter((item) => item.metric_group === 'expense')
   const incomeTotals = summarizeMetrics(incomeItems)
   const expenseTotals = summarizeMetrics(expenseItems)
+  const periodLabel = buildRangeLabel(
+    props.weekOptions[props.weekStart],
+    props.weekOptions[props.weekEnd],
+    formatWeekLabel,
+  )
 
   return (
     <section className="screen-grid">
@@ -236,27 +244,31 @@ function OperationalScreen(props: {
         />
       </div>
 
-      <div className="summary-strip">
-        <MetricTile label="План доходов" value={incomeTotals.plan} tone="plan" />
-        <MetricTile label="Факт доходов" value={incomeTotals.fact} tone="fact" muted={!incomeTotals.hasActual} />
-        <MetricTile label="План расходов" value={expenseTotals.plan} tone="expense" />
-        <MetricTile label="Факт расходов" value={expenseTotals.fact} tone="fact" muted={!expenseTotals.hasActual} />
-      </div>
+      <section className="summary-block">
+        <div className="panel-head">
+          <div className="summary-head">
+            <span className="eyebrow">Всего за период</span>
+            <strong>{periodLabel}</strong>
+          </div>
+        </div>
+        <div className="summary-strip summary-strip-duo">
+          <MetricTile label="План доходов" value={incomeTotals.plan} tone="plan" />
+          <MetricTile label="План расходов" value={expenseTotals.plan} tone="expense" />
+        </div>
+      </section>
 
-      <div className="chart-grid">
-        <ChartPanel
-          eyebrow="Доходы"
-          status={buildStatus('income', incomeTotals.delta, incomeTotals.hasActual)}
-        >
-          <MetricChart items={incomeItems} kind="income" dateFormatter={formatWeekLabel} dateKey="week_date" />
-        </ChartPanel>
-        <ChartPanel
-          eyebrow="Расходы"
-          status={buildStatus('expense', expenseTotals.delta, expenseTotals.hasActual)}
-        >
-          <MetricChart items={expenseItems} kind="expense" dateFormatter={formatWeekLabel} dateKey="week_date" />
-        </ChartPanel>
-      </div>
+      <ChartPanel eyebrow="План по неделям">
+        <div className="chart-toolbar">
+          <p className="chart-note">По умолчанию доходы и расходы показаны вместе.</p>
+          <ChartModeSwitch value={chartMode} onChange={setChartMode} />
+        </div>
+        <CombinedPlanChart
+          items={props.items}
+          mode={chartMode}
+          dateFormatter={formatWeekLabel}
+          dateKey="week_date"
+        />
+      </ChartPanel>
 
       <section className="table-panel">
         <div className="panel-head">
@@ -268,9 +280,7 @@ function OperationalScreen(props: {
               <tr>
                 <th>Неделя</th>
                 <th>План доходов</th>
-                <th>Факт доходов</th>
                 <th>План расходов</th>
-                <th>Факт расходов</th>
               </tr>
             </thead>
             <tbody>
@@ -278,9 +288,7 @@ function OperationalScreen(props: {
                 <tr key={row.week}>
                   <td>{formatWeekLabel(row.week)}</td>
                   <td>{formatNumber(row.incomePlan)}</td>
-                  <td>{row.incomeFact === null ? 'нет' : formatNumber(row.incomeFact)}</td>
                   <td>{formatNumber(row.expensePlan)}</td>
-                  <td>{row.expenseFact === null ? 'нет' : formatNumber(row.expenseFact)}</td>
                 </tr>
               ))}
             </tbody>
@@ -331,11 +339,17 @@ function PlanFactScreen(props: {
   onMonthStartChange: (value: string) => void
   onMonthEndChange: (value: string) => void
 }) {
+  const [chartMode, setChartMode] = useState<ChartViewMode>('all')
   const incomeItems = props.items.filter((item) => item.metric_group === 'income')
   const expenseItems = props.items.filter((item) => item.metric_group === 'expense')
   const incomeTotals = summarizeMetrics(incomeItems)
   const expenseTotals = summarizeMetrics(expenseItems)
   const lostTotal = props.lostContracts.length
+  const periodLabel = buildRangeLabel(
+    props.monthOptions[props.monthStart],
+    props.monthOptions[props.monthEnd],
+    formatMonthLabel,
+  )
 
   return (
     <section className="screen-grid">
@@ -356,27 +370,32 @@ function PlanFactScreen(props: {
         />
       </div>
 
-      <div className="summary-strip">
-        <MetricTile label="Доходы план" value={incomeTotals.plan} tone="plan" />
-        <MetricTile label="Доходы факт" value={incomeTotals.fact} tone="fact" muted={!incomeTotals.hasActual} />
-        <MetricTile label="Расходы план" value={expenseTotals.plan} tone="expense" />
-        <MetricTile label="Упущенные договоры" value={lostTotal} tone="neutral" compact />
-      </div>
+      <section className="summary-block">
+        <div className="panel-head">
+          <div className="summary-head">
+            <span className="eyebrow">Всего за период</span>
+            <strong>{periodLabel}</strong>
+          </div>
+        </div>
+        <div className="summary-strip summary-strip-trio">
+          <MetricTile label="План доходов" value={incomeTotals.plan} tone="plan" />
+          <MetricTile label="План расходов" value={expenseTotals.plan} tone="expense" />
+          <MetricTile label="Упущенные договоры" value={lostTotal} tone="neutral" compact />
+        </div>
+      </section>
 
-      <div className="chart-grid">
-        <ChartPanel
-          eyebrow="Доходы"
-          status={buildStatus('income', incomeTotals.delta, incomeTotals.hasActual)}
-        >
-          <MetricChart items={incomeItems} kind="income" dateFormatter={formatMonthLabel} dateKey="period_month" />
-        </ChartPanel>
-        <ChartPanel
-          eyebrow="Расходы"
-          status={buildStatus('expense', expenseTotals.delta, expenseTotals.hasActual)}
-        >
-          <MetricChart items={expenseItems} kind="expense" dateFormatter={formatMonthLabel} dateKey="period_month" />
-        </ChartPanel>
-      </div>
+      <ChartPanel eyebrow="План по месяцам">
+        <div className="chart-toolbar">
+          <p className="chart-note">Общий график показывает оба потока сразу.</p>
+          <ChartModeSwitch value={chartMode} onChange={setChartMode} />
+        </div>
+        <CombinedPlanChart
+          items={props.items}
+          mode={chartMode}
+          dateFormatter={formatMonthLabel}
+          dateKey="period_month"
+        />
+      </ChartPanel>
 
       <section className="table-panel">
         <div className="panel-head">
@@ -525,26 +544,17 @@ function LossesScreen(props: {
   )
 }
 
-function MetricChart(props: {
+function CombinedPlanChart(props: {
   items: Array<WeeklySummaryRecord | MonthlyComparisonRecord>
-  kind: MetricGroup
+  mode: ChartViewMode
   dateKey: 'week_date' | 'period_month'
   dateFormatter: (value: string) => string
 }) {
-  const rows = props.items.map((item) => ({
-    label: props.dateFormatter(
-      props.dateKey === 'week_date'
-        ? (item as WeeklySummaryRecord).week_date
-        : (item as MonthlyComparisonRecord).period_month,
-    ),
-    plan: item.plan_amount,
-    fact: item.has_actual ? item.fact_amount : null,
-    delta: item.has_actual ? item.delta_amount : null,
-    bad:
-      props.kind === 'expense'
-        ? item.has_actual && item.fact_amount > item.plan_amount
-        : item.has_actual && item.fact_amount < item.plan_amount,
-  }))
+  const rows = buildCombinedChartRows(props.items, props.dateKey, props.dateFormatter)
+  const showIncome = props.mode === 'all' || props.mode === 'income'
+  const showExpense = props.mode === 'all' || props.mode === 'expense'
+  const showIncomeFact = showIncome && rows.some((row) => row.incomeFact !== null && row.incomeFact !== 0)
+  const showExpenseFact = showExpense && rows.some((row) => row.expenseFact !== null && row.expenseFact !== 0)
 
   return (
     <div className="chart-short">
@@ -553,88 +563,94 @@ function MetricChart(props: {
           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#dbe3f0" />
           <XAxis dataKey="label" tickLine={false} axisLine={false} />
           <YAxis tickLine={false} axisLine={false} tickFormatter={formatCompact} />
-          <Tooltip content={<MetricTooltip metric={props.kind} />} />
+          <Tooltip content={<CombinedTooltip />} />
           <Legend />
-          <Bar dataKey="plan" fill={props.kind === 'expense' ? COLOR_EXPENSE : COLOR_PLAN} radius={[8, 8, 0, 0]} name="План" />
-          <Bar dataKey="fact" fill={COLOR_FACT} radius={[8, 8, 0, 0]} name="Факт" />
+          {showIncome ? (
+            <Bar dataKey="incomePlan" fill={COLOR_PLAN} radius={[8, 8, 0, 0]} name="План доходов" />
+          ) : null}
+          {showIncomeFact ? (
+            <Bar dataKey="incomeFact" fill={COLOR_FACT} radius={[8, 8, 0, 0]} name="Факт доходов" />
+          ) : null}
+          {showExpense ? (
+            <Bar dataKey="expensePlan" fill={COLOR_EXPENSE} radius={[8, 8, 0, 0]} name="План расходов" />
+          ) : null}
+          {showExpenseFact ? (
+            <Bar dataKey="expenseFact" fill={COLOR_FACT_EXPENSE} radius={[8, 8, 0, 0]} name="Факт расходов" />
+          ) : null}
         </BarChart>
       </ResponsiveContainer>
     </div>
   )
 }
 
-function MetricTooltip(props: {
+function CombinedTooltip(props: {
   active?: boolean
+  label?: string
   payload?: Array<{
-    payload: {
-      label: string
-      plan: number
-      fact: number | null
-      delta: number | null
-      bad: boolean
-    }
+    name: string
+    value: number
+    color: string
   }>
-  metric: MetricGroup
 }) {
   if (!props.active || !props.payload?.length) {
     return null
   }
 
-  const row = props.payload[0].payload
-  const statusTone = row.delta === null ? 'neutral' : row.bad ? 'bad' : 'good'
-  const statusText =
-    row.delta === null
-      ? 'Факт не загружен'
-      : row.bad
-        ? 'Неблагоприятное отклонение'
-        : 'Благоприятное отклонение'
-
   return (
     <div className="tooltip">
-      <div className="tooltip-title">{row.label}</div>
-      <div className="tooltip-line">
-        <span>План</span>
-        <strong>{formatNumber(row.plan)}</strong>
-      </div>
-      <div className="tooltip-line">
-        <span>Факт</span>
-        <strong>{row.fact === null ? 'нет' : formatNumber(row.fact)}</strong>
-      </div>
-      <div className="tooltip-line">
-        <span>Разница</span>
-        <strong>{row.delta === null ? 'нет' : formatNumber(Math.abs(row.delta))}</strong>
-      </div>
-      <StatusBadge
-        tone={statusTone}
-        label={
-          props.metric === 'expense' && row.delta !== null
-            ? row.bad
-              ? 'Расход выше плана'
-              : 'Расход в пределах плана'
-            : props.metric === 'income' && row.delta !== null
-              ? row.bad
-                ? 'Доход ниже плана'
-                : 'Доход выше плана'
-              : statusText
-        }
-      />
+      <div className="tooltip-title">{props.label}</div>
+      {props.payload
+        .filter((item) => item.value !== null && item.value !== undefined)
+        .map((item) => (
+          <div className="tooltip-line" key={item.name}>
+            <span className="tooltip-series">
+              <i style={{ backgroundColor: item.color }} />
+              {item.name}
+            </span>
+            <strong>{formatNumber(item.value)}</strong>
+          </div>
+        ))}
     </div>
   )
 }
 
 function ChartPanel(props: {
   eyebrow: string
-  status: { label: string; tone: 'good' | 'bad' | 'neutral' }
+  status?: { label: string; tone: 'good' | 'bad' | 'neutral' }
   children: ReactNode
 }) {
   return (
     <section className="chart-panel">
       <div className="panel-head">
         <span className="eyebrow">{props.eyebrow}</span>
-        <StatusBadge tone={props.status.tone} label={props.status.label} />
+        {props.status ? <StatusBadge tone={props.status.tone} label={props.status.label} /> : null}
       </div>
       {props.children}
     </section>
+  )
+}
+
+function ChartModeSwitch(props: {
+  value: ChartViewMode
+  onChange: (value: ChartViewMode) => void
+}) {
+  return (
+    <div className="chart-mode-switch" role="tablist" aria-label="Режим графика">
+      {[
+        ['all', 'Вместе'],
+        ['income', 'Доходы'],
+        ['expense', 'Расходы'],
+      ].map(([value, label]) => (
+        <button
+          key={value}
+          type="button"
+          className={props.value === value ? 'mode-chip active' : 'mode-chip'}
+          onClick={() => props.onChange(value as ChartViewMode)}
+        >
+          {label}
+        </button>
+      ))}
+    </div>
   )
 }
 
@@ -702,25 +718,18 @@ function summarizeMetrics(items: Array<WeeklySummaryRecord | MonthlyComparisonRe
 }
 
 function buildWeeklyTableRows(items: WeeklySummaryRecord[]) {
-  const map = new Map<
-    string,
-    { week: string; incomePlan: number; incomeFact: number | null; expensePlan: number; expenseFact: number | null }
-  >()
+  const map = new Map<string, { week: string; incomePlan: number; expensePlan: number }>()
 
   items.forEach((item) => {
     const existing = map.get(item.week_date) ?? {
       week: item.week_date,
       incomePlan: 0,
-      incomeFact: null,
       expensePlan: 0,
-      expenseFact: null,
     }
     if (item.metric_group === 'income') {
       existing.incomePlan = item.plan_amount
-      existing.incomeFact = item.has_actual ? item.fact_amount : null
     } else {
       existing.expensePlan = item.plan_amount
-      existing.expenseFact = item.has_actual ? item.fact_amount : null
     }
     map.set(item.week_date, existing)
   })
@@ -728,18 +737,62 @@ function buildWeeklyTableRows(items: WeeklySummaryRecord[]) {
   return Array.from(map.values())
 }
 
-function buildStatus(metric: MetricGroup, delta: number, hasActual: boolean) {
-  if (!hasActual) {
-    return { label: 'Факт не загружен', tone: 'neutral' as const }
+function buildCombinedChartRows(
+  items: Array<WeeklySummaryRecord | MonthlyComparisonRecord>,
+  dateKey: 'week_date' | 'period_month',
+  dateFormatter: (value: string) => string,
+) {
+  const map = new Map<
+    string,
+    {
+      label: string
+      incomePlan: number
+      incomeFact: number | null
+      expensePlan: number
+      expenseFact: number | null
+    }
+  >()
+
+  items.forEach((item) => {
+    const periodValue =
+      dateKey === 'week_date'
+        ? (item as WeeklySummaryRecord).week_date
+        : (item as MonthlyComparisonRecord).period_month
+
+    const row = map.get(periodValue) ?? {
+      label: dateFormatter(periodValue),
+      incomePlan: 0,
+      incomeFact: null,
+      expensePlan: 0,
+      expenseFact: null,
+    }
+
+    if (item.metric_group === 'income') {
+      row.incomePlan = item.plan_amount
+      row.incomeFact = item.has_actual && item.fact_amount !== 0 ? item.fact_amount : null
+    } else {
+      row.expensePlan = item.plan_amount
+      row.expenseFact = item.has_actual && item.fact_amount !== 0 ? item.fact_amount : null
+    }
+
+    map.set(periodValue, row)
+  })
+
+  return Array.from(map.values())
+}
+
+function buildRangeLabel(
+  startValue: string | undefined,
+  endValue: string | undefined,
+  formatter: (value: string) => string,
+) {
+  if (!startValue || !endValue) {
+    return 'весь доступный период'
   }
-  if (metric === 'expense') {
-    return delta > 0
-      ? { label: 'Выше плана', tone: 'bad' as const }
-      : { label: 'В пределах плана', tone: 'good' as const }
+  if (startValue === endValue) {
+    return formatter(startValue)
   }
-  return delta < 0
-    ? { label: 'Ниже плана', tone: 'bad' as const }
-    : { label: 'Выше плана', tone: 'good' as const }
+  return `${formatter(startValue)} – ${formatter(endValue)}`
 }
 
 function uniqueSorted(values: string[]) {
