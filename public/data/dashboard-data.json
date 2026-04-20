@@ -1,0 +1,2582 @@
+{
+  "generated_at": "2026-04-20T15:46:53Z",
+  "source_dir": "/Users/vasa/Documents/projects work/big company/bexfil/data_bexfil",
+  "source_flags": {
+    "monthly_plan_loaded": true,
+    "weekly_plan_loaded": true,
+    "finance_actuals_loaded": false,
+    "lost_contracts_loaded": false,
+    "opportunities_loaded": false,
+    "production_loaded": false
+  },
+  "availability": {
+    "monthly_range": [
+      "2026-04-01",
+      "2026-06-01"
+    ],
+    "weekly_range": [
+      "2026-04-16",
+      "2026-06-25"
+    ],
+    "facts_loaded": false,
+    "losses_loaded": false,
+    "opportunities_loaded": false
+  },
+  "monthlyComparison": [
+    {
+      "period_month": "2026-04-01",
+      "metric_group": "expense",
+      "line_name": "Расход",
+      "plan_amount_raw": 7996000.0,
+      "is_total": true,
+      "summary_line": "Расход",
+      "fact_amount": 0.0,
+      "plan_amount": 7996000.0,
+      "has_actual": false,
+      "delta_amount": -7996000.0,
+      "adverse_amount": 0.0,
+      "favorable_amount": 0.0
+    },
+    {
+      "period_month": "2026-04-01",
+      "metric_group": "income",
+      "line_name": "Доход",
+      "plan_amount_raw": 5167500.0,
+      "is_total": true,
+      "summary_line": "Доход",
+      "fact_amount": 0.0,
+      "plan_amount": 5167500.0,
+      "has_actual": false,
+      "delta_amount": -5167500.0,
+      "adverse_amount": 0.0,
+      "favorable_amount": 0.0
+    },
+    {
+      "period_month": "2026-05-01",
+      "metric_group": "expense",
+      "line_name": "Расход",
+      "plan_amount_raw": 13206000.0,
+      "is_total": true,
+      "summary_line": "Расход",
+      "fact_amount": 0.0,
+      "plan_amount": 13206000.0,
+      "has_actual": false,
+      "delta_amount": -13206000.0,
+      "adverse_amount": 0.0,
+      "favorable_amount": 0.0
+    },
+    {
+      "period_month": "2026-05-01",
+      "metric_group": "income",
+      "line_name": "Доход",
+      "plan_amount_raw": 27457500.0,
+      "is_total": true,
+      "summary_line": "Доход",
+      "fact_amount": 0.0,
+      "plan_amount": 27457500.0,
+      "has_actual": false,
+      "delta_amount": -27457500.0,
+      "adverse_amount": 0.0,
+      "favorable_amount": 0.0
+    },
+    {
+      "period_month": "2026-06-01",
+      "metric_group": "expense",
+      "line_name": "Расход",
+      "plan_amount_raw": 10251000.0,
+      "is_total": true,
+      "summary_line": "Расход",
+      "fact_amount": 0.0,
+      "plan_amount": 10251000.0,
+      "has_actual": false,
+      "delta_amount": -10251000.0,
+      "adverse_amount": 0.0,
+      "favorable_amount": 0.0
+    },
+    {
+      "period_month": "2026-06-01",
+      "metric_group": "income",
+      "line_name": "Доход",
+      "plan_amount_raw": 21187500.0,
+      "is_total": true,
+      "summary_line": "Доход",
+      "fact_amount": 0.0,
+      "plan_amount": 21187500.0,
+      "has_actual": false,
+      "delta_amount": -21187500.0,
+      "adverse_amount": 0.0,
+      "favorable_amount": 0.0
+    }
+  ],
+  "weeklySummary": [
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "Расход",
+      "plan_amount": 1410800.0,
+      "is_total": true,
+      "fact_amount": 0.0,
+      "has_actual": false,
+      "delta_amount": 0.0
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "income",
+      "line_name": "Доход",
+      "plan_amount": 0.0,
+      "is_total": true,
+      "fact_amount": 0.0,
+      "has_actual": false,
+      "delta_amount": 0.0
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "Расход",
+      "plan_amount": 2255695.0,
+      "is_total": true,
+      "fact_amount": 0.0,
+      "has_actual": false,
+      "delta_amount": 0.0
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "income",
+      "line_name": "Доход",
+      "plan_amount": 0.0,
+      "is_total": true,
+      "fact_amount": 0.0,
+      "has_actual": false,
+      "delta_amount": 0.0
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "Расход",
+      "plan_amount": 4382150.0,
+      "is_total": true,
+      "fact_amount": 0.0,
+      "has_actual": false,
+      "delta_amount": 0.0
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "income",
+      "line_name": "Доход",
+      "plan_amount": 5167500.0,
+      "is_total": true,
+      "fact_amount": 0.0,
+      "has_actual": false,
+      "delta_amount": 0.0
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "Расход",
+      "plan_amount": 785000.0,
+      "is_total": true,
+      "fact_amount": 0.0,
+      "has_actual": false,
+      "delta_amount": 0.0
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "income",
+      "line_name": "Доход",
+      "plan_amount": 0.0,
+      "is_total": true,
+      "fact_amount": 0.0,
+      "has_actual": false,
+      "delta_amount": 0.0
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "Расход",
+      "plan_amount": 3625000.0,
+      "is_total": true,
+      "fact_amount": 0.0,
+      "has_actual": false,
+      "delta_amount": 0.0
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "income",
+      "line_name": "Доход",
+      "plan_amount": 0.0,
+      "is_total": true,
+      "fact_amount": 0.0,
+      "has_actual": false,
+      "delta_amount": 0.0
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "Расход",
+      "plan_amount": 7274250.0,
+      "is_total": true,
+      "fact_amount": 0.0,
+      "has_actual": false,
+      "delta_amount": 0.0
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "income",
+      "line_name": "Доход",
+      "plan_amount": 0.0,
+      "is_total": true,
+      "fact_amount": 0.0,
+      "has_actual": false,
+      "delta_amount": 0.0
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "Расход",
+      "plan_amount": 759150.0,
+      "is_total": true,
+      "fact_amount": 0.0,
+      "has_actual": false,
+      "delta_amount": 0.0
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "income",
+      "line_name": "Доход",
+      "plan_amount": 22195500.0,
+      "is_total": true,
+      "fact_amount": 0.0,
+      "has_actual": false,
+      "delta_amount": 0.0
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "Расход",
+      "plan_amount": 1955000.0,
+      "is_total": true,
+      "fact_amount": 0.0,
+      "has_actual": false,
+      "delta_amount": 0.0
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "income",
+      "line_name": "Доход",
+      "plan_amount": 0.0,
+      "is_total": true,
+      "fact_amount": 0.0,
+      "has_actual": false,
+      "delta_amount": 0.0
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "Расход",
+      "plan_amount": 2025000.0,
+      "is_total": true,
+      "fact_amount": 0.0,
+      "has_actual": false,
+      "delta_amount": 0.0
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "income",
+      "line_name": "Доход",
+      "plan_amount": 0.0,
+      "is_total": true,
+      "fact_amount": 0.0,
+      "has_actual": false,
+      "delta_amount": 0.0
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "Расход",
+      "plan_amount": 2605000.0,
+      "is_total": true,
+      "fact_amount": 0.0,
+      "has_actual": false,
+      "delta_amount": 0.0
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "income",
+      "line_name": "Доход",
+      "plan_amount": 0.0,
+      "is_total": true,
+      "fact_amount": 0.0,
+      "has_actual": false,
+      "delta_amount": 0.0
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "Расход",
+      "plan_amount": 3003400.0,
+      "is_total": true,
+      "fact_amount": 0.0,
+      "has_actual": false,
+      "delta_amount": 0.0
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "income",
+      "line_name": "Доход",
+      "plan_amount": 12544500.0,
+      "is_total": true,
+      "fact_amount": 0.0,
+      "has_actual": false,
+      "delta_amount": 0.0
+    }
+  ],
+  "weeklyPlanLines": [
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "1",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "2",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "IT обеспечение",
+      "plan_amount": 10800.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "Аренда офис",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "Аренда производство",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "Доставка Покупателям",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "Доставка Поставщики",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "Доставка из зарубежа",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "ЖКХ производство",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "Закупка сырья для ГП",
+      "plan_amount": 710000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "Интернет, Мобильная связь, Почтовые расходы, Телефонная связь",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "Информационно-консультационные (обзвон…) Уилстрим",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "Командировочные расходы, такси",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "Кредитные средства",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "НДС",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "Общехоз.прочие",
+      "plan_amount": 45000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "Погашение кредитов (%)",
+      "plan_amount": 600000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "Расход",
+      "plan_amount": 1410800.0,
+      "is_total": true
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "Расходы на персонал прочие",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "Расходы на таможню, таможенное оформление",
+      "plan_amount": 40000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "Ремонт Оборудования, покупка Оборудования",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "Сертификация",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "Спецодежда",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "Страхование",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "Услуги банка",
+      "plan_amount": 5000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "Услуги сторонних организаций (Финансовые, консультац.юридические услуги, Агенты)",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "expense",
+      "line_name": "ФОТ с налогами (взносы, НДФЛ)",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "income",
+      "line_name": "Выручка",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-16",
+      "metric_group": "income",
+      "line_name": "Доход",
+      "plan_amount": 0.0,
+      "is_total": true
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "1",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "2",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "IT обеспечение",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "Аренда офис",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "Аренда производство",
+      "plan_amount": 539250.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "Доставка Покупателям",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "Доставка Поставщики",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "Доставка из зарубежа",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "ЖКХ производство",
+      "plan_amount": 20000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "Закупка сырья для ГП",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "Интернет, Мобильная связь, Почтовые расходы, Телефонная связь",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "Информационно-консультационные (обзвон…) Уилстрим",
+      "plan_amount": 179445.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "Командировочные расходы, такси",
+      "plan_amount": 20000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "Кредитные средства",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "НДС",
+      "plan_amount": 17000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "Общехоз.прочие",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "Погашение кредитов (%)",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "Расход",
+      "plan_amount": 2255695.0,
+      "is_total": true
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "Расходы на персонал прочие",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "Расходы на таможню, таможенное оформление",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "Ремонт Оборудования, покупка Оборудования",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "Сертификация",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "Спецодежда",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "Страхование",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "Услуги банка",
+      "plan_amount": 5000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "Услуги сторонних организаций (Финансовые, консультац.юридические услуги, Агенты)",
+      "plan_amount": 315000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "expense",
+      "line_name": "ФОТ с налогами (взносы, НДФЛ)",
+      "plan_amount": 1160000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "income",
+      "line_name": "Выручка",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-23",
+      "metric_group": "income",
+      "line_name": "Доход",
+      "plan_amount": 0.0,
+      "is_total": true
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "1",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "2",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "IT обеспечение",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "Аренда офис",
+      "plan_amount": 257150.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "Аренда производство",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "Доставка Покупателям",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "Доставка Поставщики",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "Доставка из зарубежа",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "ЖКХ производство",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "Закупка сырья для ГП",
+      "plan_amount": 4000000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "Интернет, Мобильная связь, Почтовые расходы, Телефонная связь",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "Информационно-консультационные (обзвон…) Уилстрим",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "Командировочные расходы, такси",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "Кредитные средства",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "НДС",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "Общехоз.прочие",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "Погашение кредитов (%)",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "Расход",
+      "plan_amount": 4382150.0,
+      "is_total": true
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "Расходы на персонал прочие",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "Расходы на таможню, таможенное оформление",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "Ремонт Оборудования, покупка Оборудования",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "Сертификация",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "Спецодежда",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "Страхование",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "Услуги банка",
+      "plan_amount": 5000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "Услуги сторонних организаций (Финансовые, консультац.юридические услуги, Агенты)",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "expense",
+      "line_name": "ФОТ с налогами (взносы, НДФЛ)",
+      "plan_amount": 120000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "income",
+      "line_name": "Выручка",
+      "plan_amount": 5167500.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-04-30",
+      "metric_group": "income",
+      "line_name": "Доход",
+      "plan_amount": 5167500.0,
+      "is_total": true
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "1",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "2",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "IT обеспечение",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "Аренда офис",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "Аренда производство",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "Доставка Покупателям",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "Доставка Поставщики",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "Доставка из зарубежа",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "ЖКХ производство",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "Закупка сырья для ГП",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "Интернет, Мобильная связь, Почтовые расходы, Телефонная связь",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "Информационно-консультационные (обзвон…) Уилстрим",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "Командировочные расходы, такси",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "Кредитные средства",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "НДС",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "Общехоз.прочие",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "Погашение кредитов (%)",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "Расход",
+      "plan_amount": 785000.0,
+      "is_total": true
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "Расходы на персонал прочие",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "Расходы на таможню, таможенное оформление",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "Ремонт Оборудования, покупка Оборудования",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "Сертификация",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "Спецодежда",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "Страхование",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "Услуги банка",
+      "plan_amount": 5000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "Услуги сторонних организаций (Финансовые, консультац.юридические услуги, Агенты)",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "expense",
+      "line_name": "ФОТ с налогами (взносы, НДФЛ)",
+      "plan_amount": 780000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "income",
+      "line_name": "Выручка",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-07",
+      "metric_group": "income",
+      "line_name": "Доход",
+      "plan_amount": 0.0,
+      "is_total": true
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "1",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "2",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "IT обеспечение",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "Аренда офис",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "Аренда производство",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "Доставка Покупателям",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "Доставка Поставщики",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "Доставка из зарубежа",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "ЖКХ производство",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "Закупка сырья для ГП",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "Интернет, Мобильная связь, Почтовые расходы, Телефонная связь",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "Информационно-консультационные (обзвон…) Уилстрим",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "Командировочные расходы, такси",
+      "plan_amount": 20000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "Кредитные средства",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "НДС",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "Общехоз.прочие",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "Погашение кредитов (%)",
+      "plan_amount": 600000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "Расход",
+      "plan_amount": 3625000.0,
+      "is_total": true
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "Расходы на персонал прочие",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "Расходы на таможню, таможенное оформление",
+      "plan_amount": 3000000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "Ремонт Оборудования, покупка Оборудования",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "Сертификация",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "Спецодежда",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "Страхование",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "Услуги банка",
+      "plan_amount": 5000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "Услуги сторонних организаций (Финансовые, консультац.юридические услуги, Агенты)",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "expense",
+      "line_name": "ФОТ с налогами (взносы, НДФЛ)",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "income",
+      "line_name": "Выручка",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-14",
+      "metric_group": "income",
+      "line_name": "Доход",
+      "plan_amount": 0.0,
+      "is_total": true
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "1",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "2",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "IT обеспечение",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "Аренда офис",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "Аренда производство",
+      "plan_amount": 539250.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "Доставка Покупателям",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "Доставка Поставщики",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "Доставка из зарубежа",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "ЖКХ производство",
+      "plan_amount": 20000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "Закупка сырья для ГП",
+      "plan_amount": 3000000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "Интернет, Мобильная связь, Почтовые расходы, Телефонная связь",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "Информационно-консультационные (обзвон…) Уилстрим",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "Командировочные расходы, такси",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "Кредитные средства",
+      "plan_amount": 6953395.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "НДС",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "Общехоз.прочие",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "Погашение кредитов (%)",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "Расход",
+      "plan_amount": 7274250.0,
+      "is_total": true
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "Расходы на персонал прочие",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "Расходы на таможню, таможенное оформление",
+      "plan_amount": 3000000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "Ремонт Оборудования, покупка Оборудования",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "Сертификация",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "Спецодежда",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "Страхование",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "Услуги банка",
+      "plan_amount": 5000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "Услуги сторонних организаций (Финансовые, консультац.юридические услуги, Агенты)",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "expense",
+      "line_name": "ФОТ с налогами (взносы, НДФЛ)",
+      "plan_amount": 710000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "income",
+      "line_name": "Выручка",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-21",
+      "metric_group": "income",
+      "line_name": "Доход",
+      "plan_amount": 0.0,
+      "is_total": true
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "1",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "2",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "IT обеспечение",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "Аренда офис",
+      "plan_amount": 257150.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "Аренда производство",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "Доставка Покупателям",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "Доставка Поставщики",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "Доставка из зарубежа",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "ЖКХ производство",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "Закупка сырья для ГП",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "Интернет, Мобильная связь, Почтовые расходы, Телефонная связь",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "Информационно-консультационные (обзвон…) Уилстрим",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "Командировочные расходы, такси",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "Кредитные средства",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "НДС",
+      "plan_amount": 17000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "Общехоз.прочие",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "Погашение кредитов (%)",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "Расход",
+      "plan_amount": 759150.0,
+      "is_total": true
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "Расходы на персонал прочие",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "Расходы на таможню, таможенное оформление",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "Ремонт Оборудования, покупка Оборудования",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "Сертификация",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "Спецодежда",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "Страхование",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "Услуги банка",
+      "plan_amount": 5000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "Услуги сторонних организаций (Финансовые, консультац.юридические услуги, Агенты)",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "expense",
+      "line_name": "ФОТ с налогами (взносы, НДФЛ)",
+      "plan_amount": 480000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "income",
+      "line_name": "Выручка",
+      "plan_amount": 22195500.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-05-28",
+      "metric_group": "income",
+      "line_name": "Доход",
+      "plan_amount": 22195500.0,
+      "is_total": true
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "1",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "2",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "IT обеспечение",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "Аренда офис",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "Аренда производство",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "Доставка Покупателям",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "Доставка Поставщики",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "Доставка из зарубежа",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "ЖКХ производство",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "Закупка сырья для ГП",
+      "plan_amount": 1000000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "Интернет, Мобильная связь, Почтовые расходы, Телефонная связь",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "Информационно-консультационные (обзвон…) Уилстрим",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "Командировочные расходы, такси",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "Кредитные средства",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "НДС",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "Общехоз.прочие",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "Погашение кредитов (%)",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "Расход",
+      "plan_amount": 1955000.0,
+      "is_total": true
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "Расходы на персонал прочие",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "Расходы на таможню, таможенное оформление",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "Ремонт Оборудования, покупка Оборудования",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "Сертификация",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "Спецодежда",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "Страхование",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "Услуги банка",
+      "plan_amount": 5000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "Услуги сторонних организаций (Финансовые, консультац.юридические услуги, Агенты)",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "expense",
+      "line_name": "ФОТ с налогами (взносы, НДФЛ)",
+      "plan_amount": 950000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "income",
+      "line_name": "Выручка",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-04",
+      "metric_group": "income",
+      "line_name": "Доход",
+      "plan_amount": 0.0,
+      "is_total": true
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "1",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "2",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "IT обеспечение",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "Аренда офис",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "Аренда производство",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "Доставка Покупателям",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "Доставка Поставщики",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "Доставка из зарубежа",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "ЖКХ производство",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "Закупка сырья для ГП",
+      "plan_amount": 1000000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "Интернет, Мобильная связь, Почтовые расходы, Телефонная связь",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "Информационно-консультационные (обзвон…) Уилстрим",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "Командировочные расходы, такси",
+      "plan_amount": 20000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "Кредитные средства",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "НДС",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "Общехоз.прочие",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "Погашение кредитов (%)",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "Расход",
+      "plan_amount": 2025000.0,
+      "is_total": true
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "Расходы на персонал прочие",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "Расходы на таможню, таможенное оформление",
+      "plan_amount": 1000000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "Ремонт Оборудования, покупка Оборудования",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "Сертификация",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "Спецодежда",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "Страхование",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "Услуги банка",
+      "plan_amount": 5000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "Услуги сторонних организаций (Финансовые, консультац.юридические услуги, Агенты)",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "expense",
+      "line_name": "ФОТ с налогами (взносы, НДФЛ)",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "income",
+      "line_name": "Выручка",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-11",
+      "metric_group": "income",
+      "line_name": "Доход",
+      "plan_amount": 0.0,
+      "is_total": true
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "1",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "2",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "IT обеспечение",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "Аренда офис",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "Аренда производство",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "Доставка Покупателям",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "Доставка Поставщики",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "Доставка из зарубежа",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "ЖКХ производство",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "Закупка сырья для ГП",
+      "plan_amount": 1000000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "Интернет, Мобильная связь, Почтовые расходы, Телефонная связь",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "Информационно-консультационные (обзвон…) Уилстрим",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "Командировочные расходы, такси",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "Кредитные средства",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "НДС",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "Общехоз.прочие",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "Погашение кредитов (%)",
+      "plan_amount": 600000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "Расход",
+      "plan_amount": 2605000.0,
+      "is_total": true
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "Расходы на персонал прочие",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "Расходы на таможню, таможенное оформление",
+      "plan_amount": 1000000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "Ремонт Оборудования, покупка Оборудования",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "Сертификация",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "Спецодежда",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "Страхование",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "Услуги банка",
+      "plan_amount": 5000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "Услуги сторонних организаций (Финансовые, консультац.юридические услуги, Агенты)",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "expense",
+      "line_name": "ФОТ с налогами (взносы, НДФЛ)",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "income",
+      "line_name": "Выручка",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-18",
+      "metric_group": "income",
+      "line_name": "Доход",
+      "plan_amount": 0.0,
+      "is_total": true
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "1",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "2",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "IT обеспечение",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "Аренда офис",
+      "plan_amount": 257150.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "Аренда производство",
+      "plan_amount": 539250.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "Доставка Покупателям",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "Доставка Поставщики",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "Доставка из зарубежа",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "ЖКХ производство",
+      "plan_amount": 15000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "Закупка сырья для ГП",
+      "plan_amount": 1000000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "Интернет, Мобильная связь, Почтовые расходы, Телефонная связь",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "Информационно-консультационные (обзвон…) Уилстрим",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "Командировочные расходы, такси",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "Кредитные средства",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "НДС",
+      "plan_amount": 17000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "Общехоз.прочие",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "Погашение кредитов (%)",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "Расход",
+      "plan_amount": 3003400.0,
+      "is_total": true
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "Расходы на персонал прочие",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "Расходы на таможню, таможенное оформление",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "Ремонт Оборудования, покупка Оборудования",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "Сертификация",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "Спецодежда",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "Страхование",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "Услуги банка",
+      "plan_amount": 5000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "Услуги сторонних организаций (Финансовые, консультац.юридические услуги, Агенты)",
+      "plan_amount": 0.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "expense",
+      "line_name": "ФОТ с налогами (взносы, НДФЛ)",
+      "plan_amount": 1170000.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "income",
+      "line_name": "Выручка",
+      "plan_amount": 12544500.0,
+      "is_total": false
+    },
+    {
+      "week_date": "2026-06-25",
+      "metric_group": "income",
+      "line_name": "Доход",
+      "plan_amount": 12544500.0,
+      "is_total": true
+    }
+  ],
+  "financeActuals": [],
+  "lostContracts": [],
+  "lostContractsMonthly": [],
+  "opportunities": [],
+  "opportunitiesSummary": {
+    "status_counts": [],
+    "expected_revenue_total": 0.0
+  },
+  "productionStatus": [],
+  "productionSummary": {
+    "ready_count": 0,
+    "not_ready_count": 0,
+    "avg_readiness_pct": 0.0
+  }
+}

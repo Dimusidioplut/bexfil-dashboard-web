@@ -6,7 +6,8 @@
   "scripts": {
     "sync-data": "sh -c 'if [ -x .venv/bin/python ]; then .venv/bin/python scripts/build_dashboard_data.py; else python3 scripts/build_dashboard_data.py; fi'",
     "dev": "vite",
-    "build": "npm run sync-data && tsc -b && vite build",
+    "build": "tsc -b && vite build",
+    "build:refresh": "npm run sync-data && npm run build",
     "lint": "eslint .",
     "preview": "vite preview"
   },

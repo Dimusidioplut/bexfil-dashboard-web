@@ -42,7 +42,14 @@ npm run dev
 npm run build
 ```
 
-Во время сборки сначала запускается `sync-data`, затем Vite собирает статический фронт.
+Для обновления данных перед сборкой:
+
+```bash
+npm run build:refresh
+```
+
+`build` собирает уже зафиксированный JSON-снимок из `public/data/dashboard-data.json`.  
+`build:refresh` сначала пересобирает этот JSON из `../data_bexfil`, а затем делает production-сборку.
 
 ## Ручные CSV
 
