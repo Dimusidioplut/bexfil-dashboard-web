@@ -30,9 +30,8 @@ import {
 } from './utils'
 
 const SCREEN_OPTIONS: Array<{ key: ScreenKey; label: string }> = [
-  { key: 'operational', label: 'Оперативка' },
-  { key: 'plan-fact', label: 'План / факт' },
-  { key: 'losses', label: 'Потери и возможности' },
+  { key: 'operational', label: 'По неделям' },
+  { key: 'plan-fact', label: 'По месяцам' },
 ]
 
 type ChartViewMode = 'all' | 'income' | 'expense'
@@ -244,6 +243,8 @@ function OperationalScreen(props: {
         />
       </div>
 
+      <SourceNote text="Недельный план берется с Лист2 файла «Данные для ДДС.xlsx»." />
+
       <section className="summary-block">
         <div className="panel-head">
           <div className="summary-head">
@@ -369,6 +370,8 @@ function PlanFactScreen(props: {
           onChange={props.onMonthEndChange}
         />
       </div>
+
+      <SourceNote text="Месячный план берется с Лист1 файла «Данные для ДДС.xlsx»." />
 
       <section className="summary-block">
         <div className="panel-head">
@@ -652,6 +655,10 @@ function ChartModeSwitch(props: {
       ))}
     </div>
   )
+}
+
+function SourceNote(props: { text: string }) {
+  return <div className="source-note">{props.text}</div>
 }
 
 function RangeSelect(props: {

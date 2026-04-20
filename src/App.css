@@ -88,6 +88,13 @@
   flex-wrap: wrap;
 }
 
+.source-note {
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.45;
+  padding: 0 2px;
+}
+
 .range-select {
   display: grid;
   gap: 6px;
@@ -399,6 +406,10 @@ tbody tr:last-child td {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .source-note {
+    font-size: 12px;
+  }
+
   .range-select {
     min-width: 0;
   }
@@ -499,6 +510,11 @@ tbody tr:last-child td {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
+  }
+
+  .source-note {
+    font-size: 11px;
+    line-height: 1.4;
   }
 
   .range-select {
