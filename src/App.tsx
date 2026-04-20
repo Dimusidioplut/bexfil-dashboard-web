@@ -13,9 +13,7 @@ import {
 import './App.css'
 import type {
   DashboardData,
-  LostContractRecord,
   MonthlyComparisonRecord,
-  OpportunityRecord,
   ScreenKey,
   WeeklyPlanLineRecord,
   WeeklySummaryRecord,
@@ -113,10 +111,6 @@ function App() {
   const filteredWeekLines = data.weeklyPlanLines.filter((item) =>
     visibleWeeks.includes(item.week_date),
   )
-  const filteredLostContracts = data.lostContracts.filter((item) =>
-    item.period_month ? visibleMonths.includes(item.period_month) : true,
-  )
-
   return (
     <main className="app-shell">
       <div className="topbar">
@@ -169,10 +163,6 @@ function App() {
       {screen === 'plan-fact' ? (
         <PlanFactScreen
           items={filteredMonthly}
-          lostContracts={filteredLostContracts}
-          lostMonthly={data.lostContractsMonthly.filter((item) =>
-            visibleMonths.includes(item.period_month),
-          )}
           monthOptions={monthOptions}
           monthStart={monthStart}
           monthEnd={monthEnd}
@@ -193,13 +183,6 @@ function App() {
         />
       ) : null}
 
-      {screen === 'losses' ? (
-        <LossesScreen
-          opportunities={data.opportunities}
-          lostContracts={data.lostContracts}
-          productionReady={data.productionSummary}
-        />
-      ) : null}
     </main>
   )
 }
@@ -243,8 +226,6 @@ function OperationalScreen(props: {
         />
       </div>
 
-      <SourceNote text="Недельный план берется с Лист2 файла «Данные для ДДС.xlsx»." />
-
       <section className="summary-block">
         <div className="panel-head">
           <div className="summary-head">
@@ -252,7 +233,7 @@ function OperationalScreen(props: {
             <strong>{periodLabel}</strong>
           </div>
         </div>
-        <div className="summary-strip summary-strip-duo">
+        <div className="summary-inline">
           <MetricTile label="План доходов" value={incomeTotals.plan} tone="plan" />
           <MetricTile label="План расходов" value={expenseTotals.plan} tone="expense" />
         </div>
@@ -260,7 +241,6 @@ function OperationalScreen(props: {
 
       <ChartPanel eyebrow="План по неделям">
         <div className="chart-toolbar">
-          <p className="chart-note">По умолчанию доходы и расходы показаны вместе.</p>
           <ChartModeSwitch value={chartMode} onChange={setChartMode} />
         </div>
         <CombinedPlanChart
@@ -332,8 +312,6 @@ function OperationalScreen(props: {
 
 function PlanFactScreen(props: {
   items: MonthlyComparisonRecord[]
-  lostContracts: LostContractRecord[]
-  lostMonthly: Array<{ period_month: string; lost_count: number; amount_estimate: number }>
   monthOptions: string[]
   monthStart: number
   monthEnd: number
@@ -345,7 +323,6 @@ function PlanFactScreen(props: {
   const expenseItems = props.items.filter((item) => item.metric_group === 'expense')
   const incomeTotals = summarizeMetrics(incomeItems)
   const expenseTotals = summarizeMetrics(expenseItems)
-  const lostTotal = props.lostContracts.length
   const periodLabel = buildRangeLabel(
     props.monthOptions[props.monthStart],
     props.monthOptions[props.monthEnd],
@@ -371,8 +348,6 @@ function PlanFactScreen(props: {
         />
       </div>
 
-      <SourceNote text="Месячный план берется с Лист1 файла «Данные для ДДС.xlsx»." />
-
       <section className="summary-block">
         <div className="panel-head">
           <div className="summary-head">
@@ -380,16 +355,14 @@ function PlanFactScreen(props: {
             <strong>{periodLabel}</strong>
           </div>
         </div>
-        <div className="summary-strip summary-strip-trio">
+        <div className="summary-inline">
           <MetricTile label="План доходов" value={incomeTotals.plan} tone="plan" />
           <MetricTile label="План расходов" value={expenseTotals.plan} tone="expense" />
-          <MetricTile label="Упущенные договоры" value={lostTotal} tone="neutral" compact />
         </div>
       </section>
 
       <ChartPanel eyebrow="План по месяцам">
         <div className="chart-toolbar">
-          <p className="chart-note">Общий график показывает оба потока сразу.</p>
           <ChartModeSwitch value={chartMode} onChange={setChartMode} />
         </div>
         <CombinedPlanChart
@@ -400,149 +373,6 @@ function PlanFactScreen(props: {
         />
       </ChartPanel>
 
-      <section className="table-panel">
-        <div className="panel-head">
-          <span className="eyebrow">Упущенные договоры</span>
-          {!props.lostContracts.length ? (
-            <StatusBadge tone="neutral" label="Подтвержденных данных пока нет" />
-          ) : null}
-        </div>
-        {props.lostContracts.length ? (
-          <div className="chart-short">
-            <ResponsiveContainer width="100%" height={260}>
-              <BarChart data={props.lostMonthly.map((item) => ({
-                label: formatMonthLabel(item.period_month),
-                count: item.lost_count,
-              }))}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#dbe3f0" />
-                <XAxis dataKey="label" tickLine={false} axisLine={false} />
-                <YAxis allowDecimals={false} tickLine={false} axisLine={false} />
-                <Tooltip />
-                <Bar dataKey="count" fill="#0f766e" radius={[8, 8, 0, 0]} name="Договоры" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        ) : (
-          <EmptyState text="Заполните lost_contracts.csv, чтобы появилась аналитика по потерям." />
-        )}
-      </section>
-    </section>
-  )
-}
-
-function LossesScreen(props: {
-  opportunities: OpportunityRecord[]
-  lostContracts: LostContractRecord[]
-  productionReady: {
-    ready_count: number
-    not_ready_count: number
-    avg_readiness_pct: number
-  }
-}) {
-  const hasLosses = props.lostContracts.length > 0
-  const hasOpportunities = props.opportunities.length > 0
-
-  return (
-    <section className="screen-grid">
-      <div className="summary-strip">
-        <MetricTile
-          label="Возможности"
-          value={props.opportunities.length}
-          tone="neutral"
-          compact
-          muted={!hasOpportunities}
-        />
-        <MetricTile
-          label="Упущенные договоры"
-          value={props.lostContracts.length}
-          tone="neutral"
-          compact
-          muted={!hasLosses}
-        />
-        <MetricTile
-          label="Готово к выручке"
-          value={props.productionReady.ready_count}
-          tone="good"
-          compact
-          muted={props.productionReady.ready_count === 0}
-        />
-        <MetricTile
-          label="Средняя готовность"
-          value={`${Math.round(props.productionReady.avg_readiness_pct)}%`}
-          tone="neutral"
-          muted={props.productionReady.avg_readiness_pct === 0}
-        />
-      </div>
-
-      {!hasLosses && !hasOpportunities ? (
-        <section className="table-panel">
-          <EmptyState text="Этот экран включается только после загрузки подтвержденных данных по возможностям и потерям." />
-        </section>
-      ) : null}
-
-      {hasOpportunities ? (
-        <section className="table-panel">
-          <div className="panel-head">
-            <span className="eyebrow">Возможности</span>
-          </div>
-          <div className="table-wrap">
-            <table>
-              <thead>
-              <tr>
-                <th>Дата</th>
-                <th>Клиент</th>
-                <th>Сделка</th>
-                <th>Статус</th>
-                <th>Ожидаемо</th>
-              </tr>
-            </thead>
-            <tbody>
-              {props.opportunities.map((item) => (
-                <tr key={item.opportunity_id || `${item.event_date}-${item.title}`}>
-                  <td data-label="Дата">{formatIsoDate(item.event_date)}</td>
-                  <td data-label="Клиент">{item.customer_name || '—'}</td>
-                  <td data-label="Сделка">{item.title || '—'}</td>
-                  <td data-label="Статус">{item.status || '—'}</td>
-                  <td data-label="Ожидаемо">{formatNumber(item.expected_revenue)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        </section>
-      ) : null}
-
-      {hasLosses ? (
-        <section className="table-panel">
-          <div className="panel-head">
-            <span className="eyebrow">Потери</span>
-          </div>
-          <div className="table-wrap">
-            <table>
-              <thead>
-              <tr>
-                <th>Дата</th>
-                <th>Клиент</th>
-                <th>Договор</th>
-                <th>Причина</th>
-                <th>Сумма</th>
-              </tr>
-            </thead>
-            <tbody>
-              {props.lostContracts.map((item) => (
-                <tr key={item.lost_contract_id || `${item.lost_date}-${item.contract_name}`}>
-                  <td data-label="Дата">{formatIsoDate(item.lost_date)}</td>
-                  <td data-label="Клиент">{item.customer_name || '—'}</td>
-                  <td data-label="Договор">{item.contract_name || '—'}</td>
-                  <td data-label="Причина">{item.lost_reason_group || item.lost_reason || '—'}</td>
-                  <td data-label="Сумма">{formatNumber(item.amount_estimate)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          </div>
-        </section>
-      ) : null}
     </section>
   )
 }
@@ -657,10 +487,6 @@ function ChartModeSwitch(props: {
   )
 }
 
-function SourceNote(props: { text: string }) {
-  return <div className="source-note">{props.text}</div>
-}
-
 function RangeSelect(props: {
   label: string
   value: number
@@ -708,10 +534,6 @@ function MetricTile(props: {
       <strong>{typeof props.value === 'number' ? formatNumber(props.value) : props.value}</strong>
     </div>
   )
-}
-
-function EmptyState(props: { text: string }) {
-  return <div className="empty-state">{props.text}</div>
 }
 
 function summarizeMetrics(items: Array<WeeklySummaryRecord | MonthlyComparisonRecord>) {
