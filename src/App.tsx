@@ -51,8 +51,9 @@ function App() {
 
   useEffect(() => {
     let active = true
+    const dataUrl = `${import.meta.env.BASE_URL}data/dashboard-data.json`
 
-    fetch('/data/dashboard-data.json')
+    fetch(dataUrl)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Не удалось загрузить данные дашборда')
@@ -79,7 +80,7 @@ function App() {
           setLoading(false)
         }
       })
-
+ 
     return () => {
       active = false
     }
