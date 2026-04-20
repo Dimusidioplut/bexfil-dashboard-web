@@ -12,17 +12,15 @@
 }
 
 .topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  display: block;
   margin-bottom: 18px;
 }
 
 .screen-switcher {
-  display: inline-flex;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
-  flex-wrap: wrap;
 }
 
 .screen-chip {
@@ -45,15 +43,6 @@
   background: var(--ink);
   color: #fff;
   border-color: var(--ink);
-}
-
-.sync-meta {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--text-muted);
-  font-size: 13px;
-  white-space: nowrap;
 }
 
 .screen-grid {
@@ -370,14 +359,11 @@ tbody tr:last-child td {
   }
 
   .topbar {
-    align-items: flex-start;
-    flex-direction: column;
+    margin-bottom: 14px;
   }
 
   .screen-switcher {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .screen-chip {
@@ -385,13 +371,6 @@ tbody tr:last-child td {
     min-height: 48px;
     padding: 10px 8px;
     font-size: 14px;
-  }
-
-  .sync-meta {
-    width: 100%;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    white-space: normal;
   }
 
   .control-row {
@@ -473,9 +452,7 @@ tbody tr:last-child td {
   }
 
   .screen-switcher {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 6px;
   }
 
@@ -485,14 +462,6 @@ tbody tr:last-child td {
     padding: 9px 8px;
     font-size: 12px;
     letter-spacing: -0.01em;
-  }
-
-  .sync-meta {
-    width: 100%;
-    font-size: 12px;
-    justify-content: space-between;
-    gap: 8px;
-    white-space: normal;
   }
 
   .control-row {

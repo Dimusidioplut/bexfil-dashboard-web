@@ -21,7 +21,6 @@ import type {
 import {
   clampRange,
   formatCompact,
-  formatIsoDate,
   formatMonthLabel,
   formatNumber,
   formatWeekLabel,
@@ -126,14 +125,6 @@ function App() {
             </button>
           ))}
         </nav>
-
-        <div className="sync-meta">
-          <span>{formatIsoDate(data.generated_at)}</span>
-          <StatusBadge
-            tone={data.source_flags.finance_actuals_loaded ? 'good' : 'neutral'}
-            label={data.source_flags.finance_actuals_loaded ? 'Факт загружен' : 'Пока только план'}
-          />
-        </div>
       </div>
 
       {screen === 'operational' ? (
