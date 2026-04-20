@@ -286,9 +286,9 @@ function OperationalScreen(props: {
             <tbody>
               {buildWeeklyTableRows(props.items).map((row) => (
                 <tr key={row.week}>
-                  <td>{formatWeekLabel(row.week)}</td>
-                  <td>{formatNumber(row.incomePlan)}</td>
-                  <td>{formatNumber(row.expensePlan)}</td>
+                  <td data-label="Неделя">{formatWeekLabel(row.week)}</td>
+                  <td data-label="План доходов">{formatNumber(row.incomePlan)}</td>
+                  <td data-label="План расходов">{formatNumber(row.expensePlan)}</td>
                 </tr>
               ))}
             </tbody>
@@ -315,10 +315,10 @@ function OperationalScreen(props: {
                 .filter((item) => !item.line_name.match(/^(Доход|Расход)$/))
                 .map((line) => (
                   <tr key={`${line.week_date}-${line.metric_group}-${line.line_name}`}>
-                    <td>{formatWeekLabel(line.week_date)}</td>
-                    <td>{line.metric_group === 'income' ? 'Доход' : 'Расход'}</td>
-                    <td>{line.line_name}</td>
-                    <td>{formatNumber(line.plan_amount)}</td>
+                    <td data-label="Неделя">{formatWeekLabel(line.week_date)}</td>
+                    <td data-label="Тип">{line.metric_group === 'income' ? 'Доход' : 'Расход'}</td>
+                    <td data-label="Статья">{line.line_name}</td>
+                    <td data-label="План">{formatNumber(line.plan_amount)}</td>
                   </tr>
                 ))}
             </tbody>
@@ -485,27 +485,27 @@ function LossesScreen(props: {
           <div className="table-wrap">
             <table>
               <thead>
-                <tr>
-                  <th>Дата</th>
-                  <th>Клиент</th>
-                  <th>Сделка</th>
-                  <th>Статус</th>
-                  <th>Ожидаемо</th>
+              <tr>
+                <th>Дата</th>
+                <th>Клиент</th>
+                <th>Сделка</th>
+                <th>Статус</th>
+                <th>Ожидаемо</th>
+              </tr>
+            </thead>
+            <tbody>
+              {props.opportunities.map((item) => (
+                <tr key={item.opportunity_id || `${item.event_date}-${item.title}`}>
+                  <td data-label="Дата">{formatIsoDate(item.event_date)}</td>
+                  <td data-label="Клиент">{item.customer_name || '—'}</td>
+                  <td data-label="Сделка">{item.title || '—'}</td>
+                  <td data-label="Статус">{item.status || '—'}</td>
+                  <td data-label="Ожидаемо">{formatNumber(item.expected_revenue)}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {props.opportunities.map((item) => (
-                  <tr key={item.opportunity_id || `${item.event_date}-${item.title}`}>
-                    <td>{formatIsoDate(item.event_date)}</td>
-                    <td>{item.customer_name || '—'}</td>
-                    <td>{item.title || '—'}</td>
-                    <td>{item.status || '—'}</td>
-                    <td>{formatNumber(item.expected_revenue)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </table>
+        </div>
         </section>
       ) : null}
 
@@ -517,26 +517,26 @@ function LossesScreen(props: {
           <div className="table-wrap">
             <table>
               <thead>
-                <tr>
-                  <th>Дата</th>
-                  <th>Клиент</th>
-                  <th>Договор</th>
-                  <th>Причина</th>
-                  <th>Сумма</th>
+              <tr>
+                <th>Дата</th>
+                <th>Клиент</th>
+                <th>Договор</th>
+                <th>Причина</th>
+                <th>Сумма</th>
+              </tr>
+            </thead>
+            <tbody>
+              {props.lostContracts.map((item) => (
+                <tr key={item.lost_contract_id || `${item.lost_date}-${item.contract_name}`}>
+                  <td data-label="Дата">{formatIsoDate(item.lost_date)}</td>
+                  <td data-label="Клиент">{item.customer_name || '—'}</td>
+                  <td data-label="Договор">{item.contract_name || '—'}</td>
+                  <td data-label="Причина">{item.lost_reason_group || item.lost_reason || '—'}</td>
+                  <td data-label="Сумма">{formatNumber(item.amount_estimate)}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {props.lostContracts.map((item) => (
-                  <tr key={item.lost_contract_id || `${item.lost_date}-${item.contract_name}`}>
-                    <td>{formatIsoDate(item.lost_date)}</td>
-                    <td>{item.customer_name || '—'}</td>
-                    <td>{item.contract_name || '—'}</td>
-                    <td>{item.lost_reason_group || item.lost_reason || '—'}</td>
-                    <td>{formatNumber(item.amount_estimate)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+              ))}
+            </tbody>
+          </table>
           </div>
         </section>
       ) : null}
