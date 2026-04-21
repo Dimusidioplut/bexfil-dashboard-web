@@ -19,7 +19,7 @@
 .screen-switcher {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
 }
 
@@ -117,6 +117,12 @@
 .summary-inline {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.summary-quad {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -363,7 +369,7 @@ tbody tr:last-child td {
   }
 
   .screen-switcher {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .screen-chip {
@@ -394,6 +400,10 @@ tbody tr:last-child td {
 
   .summary-inline {
     grid-template-columns: 1fr;
+  }
+
+  .summary-quad {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .metric-tile {
@@ -452,7 +462,7 @@ tbody tr:last-child td {
   }
 
   .screen-switcher {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 6px;
   }
 
@@ -510,6 +520,11 @@ tbody tr:last-child td {
   }
 
   .summary-inline {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .summary-quad {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
   }
@@ -665,6 +680,10 @@ tbody tr:last-child td {
   .summary-strip,
   .chart-mode-switch {
     gap: 5px;
+  }
+
+  .summary-quad {
+    gap: 6px;
   }
 
   .metric-tile {

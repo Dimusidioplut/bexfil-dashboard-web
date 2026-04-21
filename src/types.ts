@@ -1,4 +1,4 @@
-export type ScreenKey = 'operational' | 'plan-fact' | 'losses'
+export type ScreenKey = 'operational' | 'plan-fact' | 'historical'
 
 export type MetricGroup = 'income' | 'expense'
 
@@ -29,6 +29,31 @@ export interface WeeklyPlanLineRecord {
   metric_group: MetricGroup
   line_name: string
   plan_amount: number
+}
+
+export interface HistoricalWeeklyPlanFactRecord {
+  week_date: string
+  metric_group: MetricGroup
+  line_name: string
+  plan_amount: number
+  fact_amount: number
+  has_actual: boolean
+  delta_amount: number
+}
+
+export interface ErpCashflowMonthlyRecord {
+  period_month: string
+  operating_amount: number
+  financial_amount: number
+  investment_amount: number
+  transfer_amount: number
+  net_amount: number
+}
+
+export interface ErpPnlMonthlyRecord {
+  period_month: string
+  revenue_amount: number
+  vp7_amount: number
 }
 
 export interface FinanceActualRecord {
@@ -101,6 +126,9 @@ export interface DashboardData {
     lost_contracts_loaded: boolean
     opportunities_loaded: boolean
     production_loaded: boolean
+    april_plan_fact_loaded: boolean
+    erp_cashflow_loaded: boolean
+    erp_pnl_loaded: boolean
   }
   availability: {
     monthly_range: string[]
@@ -108,10 +136,15 @@ export interface DashboardData {
     facts_loaded: boolean
     losses_loaded: boolean
     opportunities_loaded: boolean
+    historical_april_loaded: boolean
+    historical_erp_loaded: boolean
   }
   monthlyComparison: MonthlyComparisonRecord[]
   weeklySummary: WeeklySummaryRecord[]
   weeklyPlanLines: WeeklyPlanLineRecord[]
+  historicalWeeklyPlanFact: HistoricalWeeklyPlanFactRecord[]
+  erpCashflowMonthly: ErpCashflowMonthlyRecord[]
+  erpPnlMonthly: ErpPnlMonthlyRecord[]
   financeActuals: FinanceActualRecord[]
   lostContracts: LostContractRecord[]
   lostContractsMonthly: Array<{

@@ -17,6 +17,7 @@ SOURCE_DIR = Path(
 ).expanduser()
 MANUAL_DIR = ROOT_DIR / "manual-data"
 OUTPUT_FILE = ROOT_DIR / "public" / "data" / "dashboard-data.json"
+TELEGRAM_DOWNLOADS_DIR = Path.home() / "Downloads" / "Telegram Desktop"
 
 DDS_FILE = SOURCE_DIR / "Данные для ДДС.xlsx"
 FINANCE_ACTUALS_FILE = MANUAL_DIR / "finance_actuals.csv"
@@ -48,12 +49,35 @@ class SourceFlags:
     lost_contracts_loaded: bool
     opportunities_loaded: bool
     production_loaded: bool
+    april_plan_fact_loaded: bool
+    erp_cashflow_loaded: bool
+    erp_pnl_loaded: bool
 
 
 def _normalize_label(value: object) -> str:
     if value is None:
         return ""
+    try:
+        if pd.isna(value):
+            return ""
+    except TypeError:
+        pass
     return str(value).strip()
+
+
+def _resolve_optional_file(env_var: str, filenames: list[str]) -> Path | None:
+    explicit = os.environ.get(env_var)
+    if explicit:
+        path = Path(explicit).expanduser()
+        if path.exists():
+            return path
+
+    for directory in (SOURCE_DIR, TELEGRAM_DOWNLOADS_DIR):
+        for filename in filenames:
+            candidate = directory / filename
+            if candidate.exists():
+                return candidate
+    return None
 
 
 def _coerce_number(value: object) -> float:
@@ -91,6 +115,20 @@ def _parse_excel_date(value: object) -> pd.Timestamp:
     if pd.isna(parsed):
         return pd.NaT
     return parsed.normalize()
+
+
+HISTORICAL_DDS_FILE = _resolve_optional_file(
+    "BEXFIL_HISTORICAL_DDS_FILE",
+    ["ДДС Апрель 2026 (-).xlsx"],
+)
+ERP_CASHFLOW_FILE = _resolve_optional_file(
+    "BEXFIL_ERP_CASHFLOW_FILE",
+    ["ДДС ЕРП (2025для отправки).xlsx"],
+)
+ERP_PNL_FILE = _resolve_optional_file(
+    "BEXFIL_ERP_PNL_FILE",
+    ["ОПУ ЕРП (2025для отправкиРУБ) (1).xlsx"],
+)
 
 
 def _month_from_header(header: str) -> pd.Timestamp:
@@ -266,6 +304,180 @@ def load_production_status() -> pd.DataFrame:
     return frame
 
 
+def _find_row_index(labels: pd.Series, pattern: str) -> int | None:
+    matches = labels[labels.str.contains(pattern, regex=True, case=False, na=False)]
+    if matches.empty:
+        return None
+    return int(matches.index[0])
+
+
+def _lookup_row_value(
+    frame: pd.DataFrame,
+    labels: pd.Series,
+    pattern: str,
+    column: object,
+) -> float:
+    row_index = _find_row_index(labels, pattern)
+    if row_index is None:
+        return 0.0
+    return _coerce_number(frame.at[row_index, column])
+
+
+def _parse_week_start(header: str, year: int, month: int) -> pd.Timestamp:
+    match = re.search(r"\((\d{2})-\d{2}\)", header)
+    if not match:
+        return pd.NaT
+    return pd.Timestamp(year=year, month=month, day=int(match.group(1)))
+
+
+def load_historical_april_weekly_plan_fact() -> pd.DataFrame:
+    columns = [
+        "week_date",
+        "metric_group",
+        "line_name",
+        "plan_amount",
+        "fact_amount",
+        "has_actual",
+        "delta_amount",
+    ]
+    if HISTORICAL_DDS_FILE is None:
+        return pd.DataFrame(columns=columns)
+
+    sheet = pd.read_excel(HISTORICAL_DDS_FILE, sheet_name=0, header=None)
+    if sheet.empty:
+        return pd.DataFrame(columns=columns)
+
+    top_headers = sheet.iloc[2].tolist()
+    sub_headers = sheet.iloc[3].tolist()
+    labels = sheet.iloc[:, 0].map(_normalize_label)
+    income_row = _find_row_index(labels, r"^Поступления$")
+    expense_row = _find_row_index(labels, r"^Списания \(операционная деятельность\)$")
+    if income_row is None or expense_row is None:
+        return pd.DataFrame(columns=columns)
+
+    records: dict[tuple[pd.Timestamp, str], dict[str, object]] = {}
+    april_section_active = False
+
+    for column_index in range(1, sheet.shape[1]):
+        header = _normalize_label(top_headers[column_index])
+        marker = _normalize_label(sub_headers[column_index]).upper()
+        previous_header = _normalize_label(top_headers[column_index - 1]) if column_index > 1 else ""
+        effective_header = header
+        if not effective_header and "неделя" in previous_header.lower() and marker == "ФАКТ":
+            effective_header = previous_header
+        lowered_header = effective_header.lower()
+
+        if "апрель 2026 итог" in lowered_header:
+            april_section_active = True
+            continue
+        if "май 2026 итог" in lowered_header:
+            break
+        if not april_section_active or "неделя" not in lowered_header or marker not in {"ПЛАН", "ФАКТ"}:
+            continue
+
+        week_date = _parse_week_start(effective_header, year=2026, month=4)
+        if pd.isna(week_date):
+            continue
+
+        for metric_group, row_index, line_name in (
+            ("income", income_row, "Поступления"),
+            ("expense", expense_row, "Списания"),
+        ):
+            amount = _coerce_number(sheet.iat[row_index, column_index])
+            if metric_group == "expense":
+                amount = abs(amount)
+
+            key = (week_date, metric_group)
+            row = records.setdefault(
+                key,
+                {
+                    "week_date": week_date,
+                    "metric_group": metric_group,
+                    "line_name": line_name,
+                    "plan_amount": 0.0,
+                    "fact_amount": 0.0,
+                    "has_actual": False,
+                    "delta_amount": 0.0,
+                },
+            )
+            if marker == "ПЛАН":
+                row["plan_amount"] = amount
+            else:
+                row["fact_amount"] = amount
+                row["has_actual"] = True
+
+    result = pd.DataFrame(records.values())
+    if result.empty:
+        return pd.DataFrame(columns=columns)
+
+    result["delta_amount"] = result["fact_amount"] - result["plan_amount"]
+    return result.sort_values(["week_date", "metric_group"]).reset_index(drop=True)
+
+
+def load_erp_cashflow_monthly() -> pd.DataFrame:
+    columns = [
+        "period_month",
+        "operating_amount",
+        "financial_amount",
+        "investment_amount",
+        "transfer_amount",
+        "net_amount",
+    ]
+    if ERP_CASHFLOW_FILE is None:
+        return pd.DataFrame(columns=columns)
+
+    sheet = pd.read_excel(ERP_CASHFLOW_FILE, sheet_name=0, header=1)
+    labels = sheet.iloc[:, 0].map(_normalize_label)
+    month_columns = [
+        column for column in sheet.columns[1:]
+        if "итого" not in _normalize_label(column).lower()
+    ]
+
+    records: list[dict[str, object]] = []
+    for column in month_columns:
+        records.append(
+            {
+                "period_month": _month_from_header(str(column)),
+                "operating_amount": _lookup_row_value(sheet, labels, r"^01 Операционная деятельность$", column),
+                "financial_amount": _lookup_row_value(sheet, labels, r"^02 Финансовая деятельность$", column),
+                "investment_amount": _lookup_row_value(sheet, labels, r"^03 Инвестиционная деятельность$", column),
+                "transfer_amount": _lookup_row_value(sheet, labels, r"^04 Переводы$", column),
+                "net_amount": _lookup_row_value(sheet, labels, r"^Общий итог$", column),
+            }
+        )
+
+    return pd.DataFrame(records).sort_values("period_month").reset_index(drop=True)
+
+
+def load_erp_pnl_monthly() -> pd.DataFrame:
+    columns = [
+        "period_month",
+        "revenue_amount",
+        "vp7_amount",
+    ]
+    if ERP_PNL_FILE is None:
+        return pd.DataFrame(columns=columns)
+
+    sheet = pd.read_excel(ERP_PNL_FILE, sheet_name=0, header=1)
+    labels = sheet.iloc[:, 0].map(_normalize_label)
+    month_columns = [
+        column for column in sheet.columns[1:]
+        if "итого" not in _normalize_label(column).lower()
+    ]
+
+    records: list[dict[str, object]] = []
+    for column in month_columns:
+        records.append(
+            {
+                "period_month": _month_from_header(str(column)),
+                "revenue_amount": _lookup_row_value(sheet, labels, r"^Выручка$", column),
+                "vp7_amount": _lookup_row_value(sheet, labels, r"Валовая прибыль 7", column),
+            }
+        )
+
+    return pd.DataFrame(records).sort_values("period_month").reset_index(drop=True)
+
+
 def build_monthly_comparison(monthly_plan: pd.DataFrame, actuals: pd.DataFrame) -> pd.DataFrame:
     plan_totals = monthly_plan[monthly_plan["is_total"]].copy()
     plan_totals["summary_line"] = plan_totals["line_name"]
@@ -388,6 +600,9 @@ def build_payload() -> dict[str, object]:
     finance_actuals = load_finance_actuals()
     monthly_comparison = build_monthly_comparison(monthly_plan, finance_actuals)
     weekly_summary = build_weekly_summary(weekly_plan)
+    historical_weekly_plan_fact = load_historical_april_weekly_plan_fact()
+    erp_cashflow_monthly = load_erp_cashflow_monthly()
+    erp_pnl_monthly = load_erp_pnl_monthly()
     lost_contracts = load_lost_contracts()
     opportunities = load_opportunities()
     production_status = load_production_status()
@@ -399,6 +614,9 @@ def build_payload() -> dict[str, object]:
         lost_contracts_loaded=not lost_contracts.empty,
         opportunities_loaded=not opportunities.empty,
         production_loaded=not production_status.empty,
+        april_plan_fact_loaded=not historical_weekly_plan_fact.empty,
+        erp_cashflow_loaded=not erp_cashflow_monthly.empty,
+        erp_pnl_loaded=not erp_pnl_monthly.empty,
     )
 
     months = sorted(monthly_comparison["period_month"].dropna().unique().tolist()) if not monthly_comparison.empty else []
@@ -420,6 +638,8 @@ def build_payload() -> dict[str, object]:
             "facts_loaded": not finance_actuals.empty,
             "losses_loaded": not lost_contracts.empty,
             "opportunities_loaded": not opportunities.empty,
+            "historical_april_loaded": not historical_weekly_plan_fact.empty,
+            "historical_erp_loaded": not erp_cashflow_monthly.empty or not erp_pnl_monthly.empty,
         },
         "monthlyComparison": frame_to_records(
             monthly_comparison,
@@ -432,6 +652,18 @@ def build_payload() -> dict[str, object]:
         "weeklyPlanLines": frame_to_records(
             weekly_plan[weekly_plan["metric_group"].isin(["income", "expense"])],
             ["week_date"],
+        ),
+        "historicalWeeklyPlanFact": frame_to_records(
+            historical_weekly_plan_fact,
+            ["week_date"],
+        ),
+        "erpCashflowMonthly": frame_to_records(
+            erp_cashflow_monthly,
+            ["period_month"],
+        ),
+        "erpPnlMonthly": frame_to_records(
+            erp_pnl_monthly,
+            ["period_month"],
         ),
         "financeActuals": frame_to_records(
             finance_actuals,

@@ -10,6 +10,9 @@
 
 Исходники:
 - `Данные для ДДС.xlsx`
+- `ДДС Апрель 2026 (-).xlsx`
+- `ДДС ЕРП (2025для отправки).xlsx`
+- `ОПУ ЕРП (2025для отправкиРУБ) (1).xlsx`
 - `Бэкс - 06.02.2026 база на согласование.xlsx`
 - `Контур.Закупки_20.04.2026*.xlsx`
 
@@ -38,7 +41,7 @@
 ### 4. Presentation
 
 Текущий движок:
-- Streamlit
+- `React + Vite`
 
 Будущий вариант:
 - PostgreSQL + BI-слой
@@ -113,6 +116,52 @@
 
 Назначение:
 - будущий полноценный источник факта для настоящего `plan/fact`.
+
+### historical_april_plan_fact_weekly
+
+Источник:
+- `ДДС Апрель 2026 (-).xlsx`
+
+Поля:
+- `week_date`
+- `metric_group`
+- `line_name`
+- `plan_amount`
+- `fact_amount`
+- `has_actual`
+- `delta_amount`
+
+Назначение:
+- прошлый недельный `план/факт`, не смешанный с текущей оперативкой.
+
+### erp_cashflow_monthly
+
+Источник:
+- `ДДС ЕРП (2025для отправки).xlsx`
+
+Поля:
+- `period_month`
+- `operating_amount`
+- `financial_amount`
+- `investment_amount`
+- `transfer_amount`
+- `net_amount`
+
+Назначение:
+- месячная историческая фактура `ДДС ERP 2025`.
+
+### erp_pnl_monthly
+
+Источник:
+- `ОПУ ЕРП (2025для отправкиРУБ) (1).xlsx`
+
+Поля:
+- `period_month`
+- `revenue_amount`
+- `vp7_amount`
+
+Назначение:
+- компактный месячный исторический срез `ОПУ ERP 2025`.
 
 ### tenders
 
