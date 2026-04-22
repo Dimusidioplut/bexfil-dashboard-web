@@ -682,7 +682,7 @@ function CombinedPlanChart(props: {
     return (
       <div className="chart-short">
         <ResponsiveContainer width="100%" height={320}>
-          <BarChart data={varianceRows} barGap={6} barCategoryGap="20%">
+          <BarChart data={varianceRows} barGap={3} barCategoryGap="24%">
             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#dbe3f0" />
             <XAxis dataKey="label" tickLine={false} axisLine={false} />
             <YAxis tickLine={false} axisLine={false} tickFormatter={formatCompact} />
@@ -715,6 +715,9 @@ function CombinedPlanChart(props: {
                   ))}
                 </Bar>
               </>
+            ) : null}
+            {showIncome && showExpense ? (
+              <Bar dataKey="groupSpacer" fill="transparent" legendType="none" isAnimationActive={false} />
             ) : null}
             {showExpense ? (
               <Bar dataKey="expensePlan" fill={COLOR_EXPENSE} radius={[8, 8, 0, 0]} name="План расходов" />
@@ -753,7 +756,7 @@ function CombinedPlanChart(props: {
   return (
     <div className="chart-short">
       <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={rows} barGap={10}>
+        <BarChart data={rows} barGap={3} barCategoryGap="24%">
           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#dbe3f0" />
           <XAxis dataKey="label" tickLine={false} axisLine={false} />
           <YAxis tickLine={false} axisLine={false} tickFormatter={formatCompact} />
@@ -779,6 +782,9 @@ function CombinedPlanChart(props: {
                 />
               ))}
             </Bar>
+          ) : null}
+          {showIncome && showExpense ? (
+            <Bar dataKey="groupSpacer" fill="transparent" legendType="none" isAnimationActive={false} />
           ) : null}
           {showExpense ? (
             <Bar dataKey="expensePlan" fill={COLOR_EXPENSE} radius={[8, 8, 0, 0]} name="План расходов" />
@@ -1188,6 +1194,7 @@ function buildCombinedChartRows(
       expenseFact: number | null
       expenseDelta: number | null
       expenseDeltaTone: DeltaTone
+      groupSpacer: number
     }
   >()
 
@@ -1207,6 +1214,7 @@ function buildCombinedChartRows(
       expenseFact: null,
       expenseDelta: null,
       expenseDeltaTone: 'neutral',
+      groupSpacer: 0,
     }
 
     if (item.metric_group === 'income') {
@@ -1236,12 +1244,13 @@ type VarianceChartRow = {
   incomeDelta: number | null
   incomeDeltaTone: DeltaTone
   expensePlan: number
-  expenseFact: number | null
-  expenseFactBase: number
-  expenseFactDelta: number
-  expenseDelta: number | null
-  expenseDeltaTone: DeltaTone
-}
+    expenseFact: number | null
+    expenseFactBase: number
+    expenseFactDelta: number
+    expenseDelta: number | null
+    expenseDeltaTone: DeltaTone
+    groupSpacer: number
+  }
 
 function buildVarianceChartRows(
   rows: Array<{
@@ -1254,6 +1263,7 @@ function buildVarianceChartRows(
     expenseFact: number | null
     expenseDelta: number | null
     expenseDeltaTone: DeltaTone
+    groupSpacer: number
   }>,
 ): VarianceChartRow[] {
   return rows.map((row) => ({
@@ -1274,6 +1284,7 @@ function buildVarianceChartRows(
       row.expenseFact === null ? 0 : Math.abs(row.expenseFact - row.expensePlan),
     expenseDelta: row.expenseDelta,
     expenseDeltaTone: row.expenseDeltaTone,
+    groupSpacer: row.groupSpacer,
   }))
 }
 
