@@ -688,9 +688,6 @@ function CombinedPlanChart(props: {
             <YAxis tickLine={false} axisLine={false} tickFormatter={formatCompact} />
             <Tooltip content={<VarianceTooltip mode={props.mode} />} />
             <Legend />
-            {showIncome ? (
-              <Bar dataKey="incomePlan" fill={COLOR_PLAN} radius={[8, 8, 0, 0]} name="План доходов" />
-            ) : null}
             {showIncomeFact ? (
               <>
                 <Bar
@@ -716,11 +713,11 @@ function CombinedPlanChart(props: {
                 </Bar>
               </>
             ) : null}
+            {showIncome ? (
+              <Bar dataKey="incomePlan" fill={COLOR_PLAN} radius={[8, 8, 0, 0]} name="План доходов" />
+            ) : null}
             {showIncome && showExpense ? (
               <Bar dataKey="groupSpacer" fill="transparent" legendType="none" isAnimationActive={false} />
-            ) : null}
-            {showExpense ? (
-              <Bar dataKey="expensePlan" fill={COLOR_EXPENSE} radius={[8, 8, 0, 0]} name="План расходов" />
             ) : null}
             {showExpenseFact ? (
               <>
@@ -747,6 +744,9 @@ function CombinedPlanChart(props: {
                 </Bar>
               </>
             ) : null}
+            {showExpense ? (
+              <Bar dataKey="expensePlan" fill={COLOR_EXPENSE} radius={[8, 8, 0, 0]} name="План расходов" />
+            ) : null}
           </BarChart>
         </ResponsiveContainer>
       </div>
@@ -762,9 +762,6 @@ function CombinedPlanChart(props: {
           <YAxis tickLine={false} axisLine={false} tickFormatter={formatCompact} />
           <Tooltip content={<CombinedTooltip showDelta={props.highlightDelta} />} />
           <Legend />
-          {showIncome ? (
-            <Bar dataKey="incomePlan" fill={COLOR_PLAN} radius={[8, 8, 0, 0]} name="План доходов" />
-          ) : null}
           {showIncomeFact ? (
             <Bar dataKey="incomeFact" fill={COLOR_FACT} radius={[8, 8, 0, 0]} name="Факт доходов">
               {rows.map((row) => (
@@ -783,11 +780,11 @@ function CombinedPlanChart(props: {
               ))}
             </Bar>
           ) : null}
+          {showIncome ? (
+            <Bar dataKey="incomePlan" fill={COLOR_PLAN} radius={[8, 8, 0, 0]} name="План доходов" />
+          ) : null}
           {showIncome && showExpense ? (
             <Bar dataKey="groupSpacer" fill="transparent" legendType="none" isAnimationActive={false} />
-          ) : null}
-          {showExpense ? (
-            <Bar dataKey="expensePlan" fill={COLOR_EXPENSE} radius={[8, 8, 0, 0]} name="План расходов" />
           ) : null}
           {showExpenseFact ? (
             <Bar
@@ -811,6 +808,9 @@ function CombinedPlanChart(props: {
                 />
               ))}
             </Bar>
+          ) : null}
+          {showExpense ? (
+            <Bar dataKey="expensePlan" fill={COLOR_EXPENSE} radius={[8, 8, 0, 0]} name="План расходов" />
           ) : null}
         </BarChart>
       </ResponsiveContainer>
