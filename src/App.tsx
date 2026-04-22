@@ -521,6 +521,7 @@ function HistoricalScreen(props: {
               dateFormatter={formatWeekLabel}
               dateKey="week_date"
               highlightDelta
+              preserveZeroFacts
             />
           </ChartPanel>
 
@@ -668,87 +669,109 @@ function CombinedPlanChart(props: {
   dateKey: 'week_date' | 'period_month'
   dateFormatter: (value: string) => string
   highlightDelta?: boolean
+  preserveZeroFacts?: boolean
 }) {
-  const rows = buildCombinedChartRows(props.items, props.dateKey, props.dateFormatter)
+  const rows = buildCombinedChartRows(
+    props.items,
+    props.dateKey,
+    props.dateFormatter,
+    props.preserveZeroFacts,
+  )
   const showIncome = props.mode === 'all' || props.mode === 'income'
   const showExpense = props.mode === 'all' || props.mode === 'expense'
-  const showIncomeFact = showIncome && rows.some((row) => row.incomeFact !== null && row.incomeFact !== 0)
+  const showIncomeFact =
+    showIncome &&
+    rows.some(
+      (row) => row.incomeFact !== null && (props.preserveZeroFacts || row.incomeFact !== 0),
+    )
   const showExpenseFact =
-    showExpense && rows.some((row) => row.expenseFact !== null && row.expenseFact !== 0)
+    showExpense &&
+    rows.some(
+      (row) => row.expenseFact !== null && (props.preserveZeroFacts || row.expenseFact !== 0),
+    )
 
   if (props.highlightDelta) {
-    const varianceRows = buildVarianceChartRows(rows)
+    const varianceRows = buildVarianceBarRows(rows)
 
     return (
       <div className="chart-short">
         <ResponsiveContainer width="100%" height={320}>
-          <BarChart data={varianceRows} barGap={3} barCategoryGap="24%">
+          <BarChart data={varianceRows} barGap={0} barCategoryGap="18%">
             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#dbe3f0" />
             <XAxis dataKey="label" tickLine={false} axisLine={false} />
             <YAxis tickLine={false} axisLine={false} tickFormatter={formatCompact} />
-            <Tooltip content={<VarianceTooltip mode={props.mode} />} />
-            <Legend />
+            <Tooltip cursor={false} content={<VarianceTooltip mode={props.mode} />} />
             {showIncomeFact ? (
-              <>
-                <Bar
-                  dataKey="incomeFactBase"
-                  stackId="incomeFact"
-                  fill={COLOR_FACT}
-                  radius={[0, 0, 0, 0]}
-                  name="Факт доходов"
-                />
-                <Bar
-                  dataKey="incomeFactDelta"
-                  stackId="incomeFact"
-                  radius={[8, 8, 0, 0]}
-                  name="Отклонение доходов"
-                  legendType="none"
-                >
-                  {varianceRows.map((row) => (
-                    <Cell
-                      key={`income-delta-${row.label}`}
-                      fill={deltaFillColor(row.incomeDeltaTone)}
-                    />
-                  ))}
-                </Bar>
-              </>
+              <Bar dataKey="incomeFactBase" stackId="incomeFact" fill={COLOR_FACT} legendType="none">
+                {varianceRows.map((row) => (
+                  <Cell key={`income-fact-base-${row.label}`} fill={COLOR_FACT} />
+                ))}
+              </Bar>
+            ) : null}
+            {showIncomeFact ? (
+              <Bar
+                dataKey="incomeFactDelta"
+                stackId="incomeFact"
+                radius={[8, 8, 0, 0]}
+                legendType="none"
+              >
+                {varianceRows.map((row) => (
+                  <Cell
+                    key={`income-fact-delta-${row.label}`}
+                    fill={deltaFillColor(row.incomeDeltaTone)}
+                  />
+                ))}
+              </Bar>
             ) : null}
             {showIncome ? (
-              <Bar dataKey="incomePlan" fill={COLOR_PLAN} radius={[8, 8, 0, 0]} name="План доходов" />
+              <Bar dataKey="incomePlan" fill={COLOR_PLAN} radius={[8, 8, 0, 0]} legendType="none" />
             ) : null}
             {showIncome && showExpense ? (
-              <Bar dataKey="groupSpacer" fill="transparent" legendType="none" isAnimationActive={false} />
+              <Bar
+                dataKey="groupSpacer"
+                fill="transparent"
+                legendType="none"
+                isAnimationActive={false}
+              />
             ) : null}
             {showExpenseFact ? (
-              <>
-                <Bar
-                  dataKey="expenseFactBase"
-                  stackId="expenseFact"
-                  fill={COLOR_FACT_EXPENSE}
-                  radius={[0, 0, 0, 0]}
-                  name="Факт расходов"
-                />
-                <Bar
-                  dataKey="expenseFactDelta"
-                  stackId="expenseFact"
-                  radius={[8, 8, 0, 0]}
-                  name="Отклонение расходов"
-                  legendType="none"
-                >
-                  {varianceRows.map((row) => (
-                    <Cell
-                      key={`expense-delta-${row.label}`}
-                      fill={deltaFillColor(row.expenseDeltaTone)}
-                    />
-                  ))}
-                </Bar>
-              </>
+              <Bar
+                dataKey="expenseFactBase"
+                stackId="expenseFact"
+                fill={COLOR_FACT_EXPENSE}
+                legendType="none"
+              >
+                {varianceRows.map((row) => (
+                  <Cell key={`expense-fact-base-${row.label}`} fill={COLOR_FACT_EXPENSE} />
+                ))}
+              </Bar>
+            ) : null}
+            {showExpenseFact ? (
+              <Bar
+                dataKey="expenseFactDelta"
+                stackId="expenseFact"
+                radius={[8, 8, 0, 0]}
+                legendType="none"
+              >
+                {varianceRows.map((row) => (
+                  <Cell
+                    key={`expense-fact-delta-${row.label}`}
+                    fill={deltaFillColor(row.expenseDeltaTone)}
+                  />
+                ))}
+              </Bar>
             ) : null}
             {showExpense ? (
-              <Bar dataKey="expensePlan" fill={COLOR_EXPENSE} radius={[8, 8, 0, 0]} name="План расходов" />
+              <Bar
+                dataKey="expensePlan"
+                fill={COLOR_EXPENSE}
+                radius={[8, 8, 0, 0]}
+                legendType="none"
+              />
             ) : null}
           </BarChart>
         </ResponsiveContainer>
+        <PlanFactLegend mode={props.mode} />
       </div>
     )
   }
@@ -883,9 +906,8 @@ function DetailsSection(props: { title: string; children: ReactNode }) {
 
 function VarianceTooltip(props: {
   active?: boolean
-  label?: string
   payload?: Array<{
-    payload?: VarianceChartRow
+    payload?: VarianceBarRow
   }>
   mode: ChartViewMode
 }) {
@@ -900,7 +922,7 @@ function VarianceTooltip(props: {
 
   return (
     <div className="tooltip">
-      <div className="tooltip-title">{props.label}</div>
+      <div className="tooltip-title">{row.label}</div>
       {(props.mode === 'all' || props.mode === 'income') && row.incomeFact !== null ? (
         <>
           <div className="tooltip-line">
@@ -934,6 +956,35 @@ function VarianceTooltip(props: {
         </>
       ) : null}
     </div>
+  )
+}
+
+function PlanFactLegend(props: { mode: ChartViewMode }) {
+  return (
+    <div className="custom-legend">
+      {props.mode !== 'expense' ? (
+        <>
+          <LegendItem color={COLOR_FACT} label="Факт доходов" />
+          <LegendItem color={COLOR_PLAN} label="План доходов" />
+        </>
+      ) : null}
+      {props.mode === 'all' ? <span className="legend-gap" /> : null}
+      {props.mode !== 'income' ? (
+        <>
+          <LegendItem color={COLOR_FACT_EXPENSE} label="Факт расходов" />
+          <LegendItem color={COLOR_EXPENSE} label="План расходов" />
+        </>
+      ) : null}
+    </div>
+  )
+}
+
+function LegendItem(props: { color: string; label: string }) {
+  return (
+    <span className="legend-item">
+      <i style={{ backgroundColor: props.color }} />
+      {props.label}
+    </span>
   )
 }
 
@@ -1181,6 +1232,7 @@ function buildCombinedChartRows(
   items: Array<WeeklySummaryRecord | MonthlyComparisonRecord | HistoricalWeeklyPlanFactRecord>,
   dateKey: 'week_date' | 'period_month',
   dateFormatter: (value: string) => string,
+  preserveZeroFacts = false,
 ) {
   const map = new Map<
     string,
@@ -1219,12 +1271,18 @@ function buildCombinedChartRows(
 
     if (item.metric_group === 'income') {
       row.incomePlan = item.plan_amount
-      row.incomeFact = item.has_actual && item.fact_amount !== 0 ? item.fact_amount : null
+      row.incomeFact = item.has_actual ? item.fact_amount : null
+      if (!preserveZeroFacts && row.incomeFact === 0) {
+        row.incomeFact = null
+      }
       row.incomeDelta = item.has_actual ? item.delta_amount : null
       row.incomeDeltaTone = getDeltaTone('income', item.delta_amount, item.has_actual)
     } else {
       row.expensePlan = item.plan_amount
-      row.expenseFact = item.has_actual && item.fact_amount !== 0 ? item.fact_amount : null
+      row.expenseFact = item.has_actual ? item.fact_amount : null
+      if (!preserveZeroFacts && row.expenseFact === 0) {
+        row.expenseFact = null
+      }
       row.expenseDelta = item.has_actual ? item.delta_amount : null
       row.expenseDeltaTone = getDeltaTone('expense', item.delta_amount, item.has_actual)
     }
@@ -1235,24 +1293,24 @@ function buildCombinedChartRows(
   return Array.from(map.values())
 }
 
-type VarianceChartRow = {
+type VarianceBarRow = {
   label: string
-  incomePlan: number
-  incomeFact: number | null
   incomeFactBase: number
   incomeFactDelta: number
+  incomePlan: number
+  groupSpacer: number
+  expenseFactBase: number
+  expenseFactDelta: number
+  expensePlan: number
+  incomeFact: number | null
   incomeDelta: number | null
   incomeDeltaTone: DeltaTone
-  expensePlan: number
-    expenseFact: number | null
-    expenseFactBase: number
-    expenseFactDelta: number
-    expenseDelta: number | null
-    expenseDeltaTone: DeltaTone
-    groupSpacer: number
-  }
+  expenseFact: number | null
+  expenseDelta: number | null
+  expenseDeltaTone: DeltaTone
+}
 
-function buildVarianceChartRows(
+function buildVarianceBarRows(
   rows: Array<{
     label: string
     incomePlan: number
@@ -1265,26 +1323,22 @@ function buildVarianceChartRows(
     expenseDeltaTone: DeltaTone
     groupSpacer: number
   }>,
-): VarianceChartRow[] {
+): VarianceBarRow[] {
   return rows.map((row) => ({
     label: row.label,
+    incomeFactBase: row.incomeFact === null ? 0 : Math.min(row.incomePlan, row.incomeFact),
+    incomeFactDelta: row.incomeFact === null ? 0 : Math.abs(row.incomeFact - row.incomePlan),
     incomePlan: row.incomePlan,
+    groupSpacer: 0,
+    expenseFactBase: row.expenseFact === null ? 0 : Math.min(row.expensePlan, row.expenseFact),
+    expenseFactDelta: row.expenseFact === null ? 0 : Math.abs(row.expenseFact - row.expensePlan),
+    expensePlan: row.expensePlan,
     incomeFact: row.incomeFact,
-    incomeFactBase:
-      row.incomeFact === null ? 0 : Math.min(row.incomePlan, row.incomeFact),
-    incomeFactDelta:
-      row.incomeFact === null ? 0 : Math.abs(row.incomeFact - row.incomePlan),
     incomeDelta: row.incomeDelta,
     incomeDeltaTone: row.incomeDeltaTone,
-    expensePlan: row.expensePlan,
     expenseFact: row.expenseFact,
-    expenseFactBase:
-      row.expenseFact === null ? 0 : Math.min(row.expensePlan, row.expenseFact),
-    expenseFactDelta:
-      row.expenseFact === null ? 0 : Math.abs(row.expenseFact - row.expensePlan),
     expenseDelta: row.expenseDelta,
     expenseDeltaTone: row.expenseDeltaTone,
-    groupSpacer: row.groupSpacer,
   }))
 }
 
