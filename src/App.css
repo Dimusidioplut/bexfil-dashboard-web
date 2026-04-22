@@ -126,6 +126,11 @@
   gap: 12px;
 }
 
+.summary-stack {
+  display: grid;
+  gap: 12px;
+}
+
 .metric-tile {
   display: grid;
   gap: 10px;
@@ -179,6 +184,11 @@
 .tile-good {
   background: rgba(15, 118, 110, 0.08);
   border-color: rgba(15, 118, 110, 0.14);
+}
+
+.tile-bad {
+  background: rgba(220, 38, 38, 0.08);
+  border-color: rgba(220, 38, 38, 0.16);
 }
 
 .chart-grid {
@@ -318,6 +328,37 @@
 .chart-short {
   width: 100%;
   min-height: 260px;
+}
+
+.custom-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px 16px;
+  margin-top: 10px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.legend-item i {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  display: inline-block;
+  flex: 0 0 auto;
+}
+
+.legend-gap {
+  width: 18px;
+  height: 1px;
 }
 
 .table-wrap {

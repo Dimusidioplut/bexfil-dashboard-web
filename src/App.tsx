@@ -437,6 +437,13 @@ function HistoricalScreen(props: {
   const [chartMode, setChartMode] = useState<ChartViewMode>('all')
   const aprilIncomeTotals = summarizeMetrics(props.aprilItems.filter((item) => item.metric_group === 'income'))
   const aprilExpenseTotals = summarizeMetrics(props.aprilItems.filter((item) => item.metric_group === 'expense'))
+  const aprilIncomeDeltaTone = getDeltaTone('income', aprilIncomeTotals.delta, aprilIncomeTotals.hasActual)
+  const aprilExpenseDeltaTone = getDeltaTone(
+    'expense',
+    aprilExpenseTotals.delta,
+    aprilExpenseTotals.hasActual,
+  )
+  const aprilFactBalance = aprilIncomeTotals.fact - aprilExpenseTotals.fact
   const aprilRangeLabel =
     props.aprilItems.length > 0
       ? buildRangeLabel(
@@ -503,11 +510,33 @@ function HistoricalScreen(props: {
                 <strong>{aprilRangeLabel}</strong>
               </div>
             </div>
-            <div className="summary-quad">
-              <MetricTile label="План поступлений" value={aprilIncomeTotals.plan} tone="plan" compact />
-              <MetricTile label="Факт поступлений" value={aprilIncomeTotals.fact} tone="fact" compact />
-              <MetricTile label="План списаний" value={aprilExpenseTotals.plan} tone="expense" compact />
-              <MetricTile label="Факт списаний" value={aprilExpenseTotals.fact} tone="fact" compact />
+            <div className="summary-stack">
+              <div className="summary-quad">
+                <MetricTile label="План поступлений" value={aprilIncomeTotals.plan} tone="plan" compact />
+                <MetricTile label="Факт поступлений" value={aprilIncomeTotals.fact} tone="fact" compact />
+                <MetricTile label="План списаний" value={aprilExpenseTotals.plan} tone="expense" compact />
+                <MetricTile label="Факт списаний" value={aprilExpenseTotals.fact} tone="fact" compact />
+              </div>
+              <div className="summary-strip summary-strip-trio">
+                <MetricTile
+                  label="Разница доходов"
+                  value={formatSignedNumber(aprilIncomeTotals.delta)}
+                  tone={tileToneFromDelta(aprilIncomeDeltaTone)}
+                  compact
+                />
+                <MetricTile
+                  label="Разница расходов"
+                  value={formatSignedNumber(aprilExpenseTotals.delta)}
+                  tone={tileToneFromDelta(aprilExpenseDeltaTone)}
+                  compact
+                />
+                <MetricTile
+                  label="Факт доходы − расходы"
+                  value={formatSignedNumber(aprilFactBalance)}
+                  tone={tileToneFromBalance(aprilFactBalance)}
+                  compact
+                />
+              </div>
             </div>
           </section>
 
@@ -724,11 +753,18 @@ function CombinedPlanChart(props: {
               </Bar>
             ) : null}
             {showIncome ? (
-              <Bar dataKey="incomePlan" fill={COLOR_PLAN} radius={[8, 8, 0, 0]} legendType="none" />
+              <Bar
+                dataKey="incomePlan"
+                stackId="incomePlan"
+                fill={COLOR_PLAN}
+                radius={[8, 8, 0, 0]}
+                legendType="none"
+              />
             ) : null}
             {showIncome && showExpense ? (
               <Bar
                 dataKey="groupSpacer"
+                stackId="groupSpacer"
                 fill="transparent"
                 legendType="none"
                 isAnimationActive={false}
@@ -764,6 +800,7 @@ function CombinedPlanChart(props: {
             {showExpense ? (
               <Bar
                 dataKey="expensePlan"
+                stackId="expensePlan"
                 fill={COLOR_EXPENSE}
                 radius={[8, 8, 0, 0]}
                 legendType="none"
@@ -1108,7 +1145,7 @@ function StatusBadge(props: { label: string; tone: 'good' | 'bad' | 'neutral' })
 function MetricTile(props: {
   label: string
   value: number | string
-  tone: 'plan' | 'fact' | 'expense' | 'neutral' | 'good'
+  tone: 'plan' | 'fact' | 'expense' | 'neutral' | 'good' | 'bad'
   compact?: boolean
   muted?: boolean
 }) {
@@ -1139,6 +1176,26 @@ function summarizeMetrics(
     : 0
   const delta = hasActual ? fact - plan : 0
   return { plan, fact, delta, hasActual }
+}
+
+function tileToneFromDelta(tone: DeltaTone): 'good' | 'bad' | 'neutral' {
+  if (tone === 'good') {
+    return 'good'
+  }
+  if (tone === 'bad') {
+    return 'bad'
+  }
+  return 'neutral'
+}
+
+function tileToneFromBalance(value: number): 'good' | 'bad' | 'neutral' {
+  if (value > 0) {
+    return 'good'
+  }
+  if (value < 0) {
+    return 'bad'
+  }
+  return 'neutral'
 }
 
 function summarizeCashflow(items: ErpCashflowMonthlyRecord[]) {
