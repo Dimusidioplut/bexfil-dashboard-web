@@ -44,6 +44,8 @@ const COLOR_EXPENSE = '#ea580c'
 const COLOR_FACT_EXPENSE = '#0f766e'
 const COLOR_NEGATIVE = '#dc2626'
 const COLOR_NEUTRAL = '#475569'
+const COLOR_DELTA_BAD = '#dc2626'
+const COLOR_DELTA_GOOD = '#f59e0b'
 
 function App() {
   const [data, setData] = useState<DashboardData | null>(null)
@@ -518,6 +520,7 @@ function HistoricalScreen(props: {
               mode={chartMode}
               dateFormatter={formatWeekLabel}
               dateKey="week_date"
+              highlightDelta
             />
           </ChartPanel>
 
@@ -532,8 +535,10 @@ function HistoricalScreen(props: {
                     <th>Неделя</th>
                     <th>План поступлений</th>
                     <th>Факт поступлений</th>
+                    <th>Разница</th>
                     <th>План списаний</th>
                     <th>Факт списаний</th>
+                    <th>Разница</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -542,8 +547,18 @@ function HistoricalScreen(props: {
                       <td data-label="Неделя">{formatWeekLabel(row.week)}</td>
                       <td data-label="План поступлений">{formatNumber(row.incomePlan)}</td>
                       <td data-label="Факт поступлений">{formatNumber(row.incomeFact)}</td>
+                      <td data-label="Разница">
+                        <span className={deltaClassName(row.incomeTone)}>
+                          {formatSignedNumber(row.incomeDelta)}
+                        </span>
+                      </td>
                       <td data-label="План списаний">{formatNumber(row.expensePlan)}</td>
                       <td data-label="Факт списаний">{formatNumber(row.expenseFact)}</td>
+                      <td data-label="Разница">
+                        <span className={deltaClassName(row.expenseTone)}>
+                          {formatSignedNumber(row.expenseDelta)}
+                        </span>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -661,6 +676,7 @@ function CombinedPlanChart(props: {
   mode: ChartViewMode
   dateKey: 'week_date' | 'period_month'
   dateFormatter: (value: string) => string
+  highlightDelta?: boolean
 }) {
   const rows = buildCombinedChartRows(props.items, props.dateKey, props.dateFormatter)
   const showIncome = props.mode === 'all' || props.mode === 'income'
@@ -676,13 +692,28 @@ function CombinedPlanChart(props: {
           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#dbe3f0" />
           <XAxis dataKey="label" tickLine={false} axisLine={false} />
           <YAxis tickLine={false} axisLine={false} tickFormatter={formatCompact} />
-          <Tooltip content={<CombinedTooltip />} />
+          <Tooltip content={<CombinedTooltip showDelta={props.highlightDelta} />} />
           <Legend />
           {showIncome ? (
             <Bar dataKey="incomePlan" fill={COLOR_PLAN} radius={[8, 8, 0, 0]} name="План доходов" />
           ) : null}
           {showIncomeFact ? (
-            <Bar dataKey="incomeFact" fill={COLOR_FACT} radius={[8, 8, 0, 0]} name="Факт доходов" />
+            <Bar dataKey="incomeFact" fill={COLOR_FACT} radius={[8, 8, 0, 0]} name="Факт доходов">
+              {rows.map((row) => (
+                <Cell
+                  key={`income-fact-${row.label}`}
+                  fill={COLOR_FACT}
+                  stroke={
+                    props.highlightDelta && row.incomeDeltaTone !== 'neutral'
+                      ? row.incomeDeltaTone === 'bad'
+                        ? COLOR_DELTA_BAD
+                        : COLOR_DELTA_GOOD
+                      : 'transparent'
+                  }
+                  strokeWidth={props.highlightDelta && row.incomeDeltaTone !== 'neutral' ? 3 : 0}
+                />
+              ))}
+            </Bar>
           ) : null}
           {showExpense ? (
             <Bar dataKey="expensePlan" fill={COLOR_EXPENSE} radius={[8, 8, 0, 0]} name="План расходов" />
@@ -693,7 +724,22 @@ function CombinedPlanChart(props: {
               fill={COLOR_FACT_EXPENSE}
               radius={[8, 8, 0, 0]}
               name="Факт расходов"
-            />
+            >
+              {rows.map((row) => (
+                <Cell
+                  key={`expense-fact-${row.label}`}
+                  fill={COLOR_FACT_EXPENSE}
+                  stroke={
+                    props.highlightDelta && row.expenseDeltaTone !== 'neutral'
+                      ? row.expenseDeltaTone === 'bad'
+                        ? COLOR_DELTA_BAD
+                        : COLOR_DELTA_GOOD
+                      : 'transparent'
+                  }
+                  strokeWidth={props.highlightDelta && row.expenseDeltaTone !== 'neutral' ? 3 : 0}
+                />
+              ))}
+            </Bar>
           ) : null}
         </BarChart>
       </ResponsiveContainer>
@@ -757,11 +803,20 @@ function CombinedTooltip(props: {
     name: string
     value: number
     color: string
+    payload?: {
+      incomeDelta?: number | null
+      expenseDelta?: number | null
+      incomeDeltaTone?: DeltaTone
+      expenseDeltaTone?: DeltaTone
+    }
   }>
+  showDelta?: boolean
 }) {
   if (!props.active || !props.payload?.length) {
     return null
   }
+
+  const row = props.payload[0]?.payload
 
   return (
     <div className="tooltip">
@@ -777,6 +832,18 @@ function CombinedTooltip(props: {
             <strong>{formatNumber(item.value)}</strong>
           </div>
         ))}
+      {props.showDelta && row && row.incomeDelta !== undefined && row.incomeDelta !== null ? (
+        <div className={`tooltip-line ${deltaClassName(row.incomeDeltaTone ?? 'neutral')}`}>
+          <span>Разница доходов</span>
+          <strong>{formatSignedNumber(row.incomeDelta)}</strong>
+        </div>
+      ) : null}
+      {props.showDelta && row && row.expenseDelta !== undefined && row.expenseDelta !== null ? (
+        <div className={`tooltip-line ${deltaClassName(row.expenseDeltaTone ?? 'neutral')}`}>
+          <span>Разница расходов</span>
+          <strong>{formatSignedNumber(row.expenseDelta)}</strong>
+        </div>
+      ) : null}
     </div>
   )
 }
@@ -931,8 +998,12 @@ function buildHistoricalWeeklyRows(items: HistoricalWeeklyPlanFactRecord[]) {
       week: string
       incomePlan: number
       incomeFact: number
+      incomeDelta: number
+      incomeTone: DeltaTone
       expensePlan: number
       expenseFact: number
+      expenseDelta: number
+      expenseTone: DeltaTone
     }
   >()
 
@@ -941,15 +1012,23 @@ function buildHistoricalWeeklyRows(items: HistoricalWeeklyPlanFactRecord[]) {
       week: item.week_date,
       incomePlan: 0,
       incomeFact: 0,
+      incomeDelta: 0,
+      incomeTone: 'neutral' as DeltaTone,
       expensePlan: 0,
       expenseFact: 0,
+      expenseDelta: 0,
+      expenseTone: 'neutral' as DeltaTone,
     }
     if (item.metric_group === 'income') {
       existing.incomePlan = item.plan_amount
       existing.incomeFact = item.fact_amount
+      existing.incomeDelta = item.delta_amount
+      existing.incomeTone = getDeltaTone('income', item.delta_amount, item.has_actual)
     } else {
       existing.expensePlan = item.plan_amount
       existing.expenseFact = item.fact_amount
+      existing.expenseDelta = item.delta_amount
+      existing.expenseTone = getDeltaTone('expense', item.delta_amount, item.has_actual)
     }
     map.set(item.week_date, existing)
   })
@@ -968,8 +1047,12 @@ function buildCombinedChartRows(
       label: string
       incomePlan: number
       incomeFact: number | null
+      incomeDelta: number | null
+      incomeDeltaTone: DeltaTone
       expensePlan: number
       expenseFact: number | null
+      expenseDelta: number | null
+      expenseDeltaTone: DeltaTone
     }
   >()
 
@@ -983,16 +1066,24 @@ function buildCombinedChartRows(
       label: dateFormatter(periodValue),
       incomePlan: 0,
       incomeFact: null,
+      incomeDelta: null,
+      incomeDeltaTone: 'neutral',
       expensePlan: 0,
       expenseFact: null,
+      expenseDelta: null,
+      expenseDeltaTone: 'neutral',
     }
 
     if (item.metric_group === 'income') {
       row.incomePlan = item.plan_amount
       row.incomeFact = item.has_actual && item.fact_amount !== 0 ? item.fact_amount : null
+      row.incomeDelta = item.has_actual ? item.delta_amount : null
+      row.incomeDeltaTone = getDeltaTone('income', item.delta_amount, item.has_actual)
     } else {
       row.expensePlan = item.plan_amount
       row.expenseFact = item.has_actual && item.fact_amount !== 0 ? item.fact_amount : null
+      row.expenseDelta = item.has_actual ? item.delta_amount : null
+      row.expenseDeltaTone = getDeltaTone('expense', item.delta_amount, item.has_actual)
     }
 
     map.set(periodValue, row)
@@ -1017,4 +1108,35 @@ function buildRangeLabel(
 
 function uniqueSorted(values: string[]) {
   return Array.from(new Set(values)).sort((left, right) => left.localeCompare(right))
+}
+
+type DeltaTone = 'good' | 'bad' | 'neutral'
+
+function getDeltaTone(
+  metricGroup: 'income' | 'expense',
+  deltaAmount: number,
+  hasActual: boolean,
+): DeltaTone {
+  if (!hasActual || Math.abs(deltaAmount) < 0.0001) {
+    return 'neutral'
+  }
+  if (metricGroup === 'income') {
+    return deltaAmount > 0 ? 'good' : 'bad'
+  }
+  return deltaAmount > 0 ? 'bad' : 'good'
+}
+
+function formatSignedNumber(value: number) {
+  const prefix = value > 0 ? '+' : value < 0 ? '−' : ''
+  return `${prefix}${formatNumber(Math.abs(value))}`
+}
+
+function deltaClassName(tone: DeltaTone) {
+  if (tone === 'good') {
+    return 'delta-good'
+  }
+  if (tone === 'bad') {
+    return 'delta-bad'
+  }
+  return 'delta-neutral'
 }

@@ -345,6 +345,21 @@ tbody tr:last-child td {
   color: var(--text-primary);
 }
 
+.tooltip-line.delta-good strong,
+.tooltip-line.delta-good span {
+  color: #a16207;
+}
+
+.tooltip-line.delta-bad strong,
+.tooltip-line.delta-bad span {
+  color: #b91c1c;
+}
+
+.tooltip-line.delta-neutral strong,
+.tooltip-line.delta-neutral span {
+  color: var(--text-muted);
+}
+
 .tooltip-series {
   display: inline-flex;
   align-items: center;
@@ -356,6 +371,37 @@ tbody tr:last-child td {
   height: 10px;
   border-radius: 999px;
   display: inline-block;
+}
+
+.delta-good,
+.delta-bad,
+.delta-neutral {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  border-radius: 999px;
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+
+.delta-good {
+  color: #a16207;
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.22);
+}
+
+.delta-bad {
+  color: #b91c1c;
+  background: rgba(220, 38, 38, 0.1);
+  border-color: rgba(220, 38, 38, 0.18);
+}
+
+.delta-neutral {
+  color: #475569;
+  background: rgba(148, 163, 184, 0.12);
+  border-color: rgba(148, 163, 184, 0.2);
 }
 
 @media (max-width: 960px) {

@@ -20,6 +20,7 @@
 ## Parking Lot
 - Add range filters specifically for ERP historical months if the screen becomes crowded
 - Decide whether `ВП 7` should later be replaced by another P&L metric
+- Add visual delta highlighting and explicit tooltip delta values for past-period plan/fact
 
 ## Blockers
 - None

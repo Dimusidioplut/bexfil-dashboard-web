@@ -35,3 +35,17 @@
   - keep April 2026 as a separate past-period `план/факт` block
 - Next:
   - checkpoint completed and published to the main branch
+
+## 2026-04-22 00:10
+- Goal: make past-period plan/fact easier to read
+- Actions:
+  - added delta highlighting on fact bars for the `Прошлое` weekly plan/fact chart
+  - added tooltip lines with explicit signed delta values
+  - added delta columns to the April 2026 historical weekly table
+- Verification:
+  - `npm run lint`
+  - `npm run build`
+- Decisions:
+  - keep only five past weekly periods because the source file itself has five weekly buckets for April 2026
+- Next:
+  - deploy the updated build to `beta.bigcom.ru/bexfil_dashboard/`
