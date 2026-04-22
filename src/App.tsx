@@ -843,9 +843,6 @@ function CombinedPlanChart(props: {
           {showIncome ? (
             <Bar dataKey="incomePlan" fill={COLOR_PLAN} radius={[8, 8, 0, 0]} name="План доходов" />
           ) : null}
-          {showIncome && showExpense ? (
-            <Bar dataKey="groupSpacer" fill="transparent" legendType="none" isAnimationActive={false} />
-          ) : null}
           {showExpenseFact ? (
             <Bar
               dataKey="expenseFact"
@@ -1051,7 +1048,10 @@ function CombinedTooltip(props: {
     <div className="tooltip">
       <div className="tooltip-title">{props.label}</div>
       {props.payload
-        .filter((item) => item.value !== null && item.value !== undefined)
+        .filter(
+          (item) =>
+            item.name !== 'groupSpacer' && item.value !== null && item.value !== undefined,
+        )
         .map((item) => (
           <div className="tooltip-line" key={item.name}>
             <span className="tooltip-series">
