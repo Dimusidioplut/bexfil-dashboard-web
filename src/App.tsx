@@ -524,10 +524,7 @@ function HistoricalScreen(props: {
             />
           </ChartPanel>
 
-          <section className="table-panel">
-            <div className="panel-head">
-              <span className="eyebrow">Апрель 2026 · недельный срез</span>
-            </div>
+          <DetailsSection title="Детализация апреля 2026">
             <div className="table-wrap">
               <table>
                 <thead>
@@ -564,7 +561,7 @@ function HistoricalScreen(props: {
                 </tbody>
               </table>
             </div>
-          </section>
+          </DetailsSection>
         </>
       ) : null}
 
@@ -573,7 +570,7 @@ function HistoricalScreen(props: {
           <section className="summary-block">
             <div className="panel-head">
               <div className="summary-head">
-                <span className="eyebrow">ДДС ERP 2025</span>
+                <span className="eyebrow">Движение денег 2025</span>
                 <strong>{historyRangeLabel}</strong>
               </div>
             </div>
@@ -583,14 +580,11 @@ function HistoricalScreen(props: {
             </div>
           </section>
 
-          <ChartPanel eyebrow="ДДС ERP 2025 · общий итог">
+          <ChartPanel eyebrow="Движение денег 2025 · общий итог">
             <HistoricalCashflowChart items={props.erpCashflowItems} />
           </ChartPanel>
 
-          <section className="table-panel">
-            <div className="panel-head">
-              <span className="eyebrow">ДДС ERP 2025 · детализация</span>
-            </div>
+          <DetailsSection title="Детализация движения денег 2025">
             <div className="table-wrap">
               <table>
                 <thead>
@@ -617,7 +611,7 @@ function HistoricalScreen(props: {
                 </tbody>
               </table>
             </div>
-          </section>
+          </DetailsSection>
         </>
       ) : null}
 
@@ -626,31 +620,28 @@ function HistoricalScreen(props: {
           <section className="summary-block">
             <div className="panel-head">
               <div className="summary-head">
-                <span className="eyebrow">ОПУ ERP 2025</span>
+                <span className="eyebrow">Прибыль и убытки 2025</span>
                 <strong>{historyRangeLabel}</strong>
               </div>
             </div>
             <div className="summary-inline">
               <MetricTile label="Выручка" value={pnlTotals.revenue} tone="plan" compact />
-              <MetricTile label="ВП 7" value={pnlTotals.vp7} tone="neutral" compact />
+              <MetricTile label="Валовая прибыль" value={pnlTotals.vp7} tone="neutral" compact />
             </div>
           </section>
 
-          <ChartPanel eyebrow="ОПУ ERP 2025 · выручка и ВП 7">
+          <ChartPanel eyebrow="Прибыль и убытки 2025 · выручка и валовая прибыль">
             <HistoricalPnlChart items={props.erpPnlItems} />
           </ChartPanel>
 
-          <section className="table-panel">
-            <div className="panel-head">
-              <span className="eyebrow">ОПУ ERP 2025 · детализация</span>
-            </div>
+          <DetailsSection title="Детализация прибыли и убытков 2025">
             <div className="table-wrap">
               <table>
                 <thead>
                   <tr>
                     <th>Месяц</th>
                     <th>Выручка</th>
-                    <th>ВП 7</th>
+                    <th>Валовая прибыль</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -658,13 +649,13 @@ function HistoricalScreen(props: {
                     <tr key={item.period_month}>
                       <td data-label="Месяц">{formatMonthLabel(item.period_month)}</td>
                       <td data-label="Выручка">{formatNumber(item.revenue_amount)}</td>
-                      <td data-label="ВП 7">{formatNumber(item.vp7_amount)}</td>
+                      <td data-label="Валовая прибыль">{formatNumber(item.vp7_amount)}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-          </section>
+          </DetailsSection>
         </>
       ) : null}
     </section>
@@ -684,6 +675,80 @@ function CombinedPlanChart(props: {
   const showIncomeFact = showIncome && rows.some((row) => row.incomeFact !== null && row.incomeFact !== 0)
   const showExpenseFact =
     showExpense && rows.some((row) => row.expenseFact !== null && row.expenseFact !== 0)
+
+  if (props.highlightDelta) {
+    const varianceRows = buildVarianceChartRows(rows)
+
+    return (
+      <div className="chart-short">
+        <ResponsiveContainer width="100%" height={320}>
+          <BarChart data={varianceRows} barGap={6} barCategoryGap="20%">
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#dbe3f0" />
+            <XAxis dataKey="label" tickLine={false} axisLine={false} />
+            <YAxis tickLine={false} axisLine={false} tickFormatter={formatCompact} />
+            <Tooltip content={<VarianceTooltip mode={props.mode} />} />
+            <Legend />
+            {showIncome ? (
+              <Bar dataKey="incomePlan" fill={COLOR_PLAN} radius={[8, 8, 0, 0]} name="План доходов" />
+            ) : null}
+            {showIncomeFact ? (
+              <>
+                <Bar
+                  dataKey="incomeFactBase"
+                  stackId="incomeFact"
+                  fill={COLOR_FACT}
+                  radius={[0, 0, 0, 0]}
+                  name="Факт доходов"
+                />
+                <Bar
+                  dataKey="incomeFactDelta"
+                  stackId="incomeFact"
+                  radius={[8, 8, 0, 0]}
+                  name="Отклонение доходов"
+                  legendType="none"
+                >
+                  {varianceRows.map((row) => (
+                    <Cell
+                      key={`income-delta-${row.label}`}
+                      fill={deltaFillColor(row.incomeDeltaTone)}
+                    />
+                  ))}
+                </Bar>
+              </>
+            ) : null}
+            {showExpense ? (
+              <Bar dataKey="expensePlan" fill={COLOR_EXPENSE} radius={[8, 8, 0, 0]} name="План расходов" />
+            ) : null}
+            {showExpenseFact ? (
+              <>
+                <Bar
+                  dataKey="expenseFactBase"
+                  stackId="expenseFact"
+                  fill={COLOR_FACT_EXPENSE}
+                  radius={[0, 0, 0, 0]}
+                  name="Факт расходов"
+                />
+                <Bar
+                  dataKey="expenseFactDelta"
+                  stackId="expenseFact"
+                  radius={[8, 8, 0, 0]}
+                  name="Отклонение расходов"
+                  legendType="none"
+                >
+                  {varianceRows.map((row) => (
+                    <Cell
+                      key={`expense-delta-${row.label}`}
+                      fill={deltaFillColor(row.expenseDeltaTone)}
+                    />
+                  ))}
+                </Bar>
+              </>
+            ) : null}
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+    )
+  }
 
   return (
     <div className="chart-short">
@@ -789,9 +854,79 @@ function HistoricalPnlChart(props: { items: ErpPnlMonthlyRecord[] }) {
           <Tooltip content={<CombinedTooltip />} />
           <Legend />
           <Bar dataKey="revenueAmount" fill={COLOR_PLAN} radius={[8, 8, 0, 0]} name="Выручка" />
-          <Bar dataKey="vp7Amount" fill={COLOR_NEUTRAL} radius={[8, 8, 0, 0]} name="ВП 7" />
+          <Bar
+            dataKey="vp7Amount"
+            fill={COLOR_NEUTRAL}
+            radius={[8, 8, 0, 0]}
+            name="Валовая прибыль"
+          />
         </BarChart>
       </ResponsiveContainer>
+    </div>
+  )
+}
+
+function DetailsSection(props: { title: string; children: ReactNode }) {
+  return (
+    <details className="details-panel">
+      <summary className="details-summary">{props.title}</summary>
+      <div className="details-body">{props.children}</div>
+    </details>
+  )
+}
+
+function VarianceTooltip(props: {
+  active?: boolean
+  label?: string
+  payload?: Array<{
+    payload?: VarianceChartRow
+  }>
+  mode: ChartViewMode
+}) {
+  if (!props.active || !props.payload?.length) {
+    return null
+  }
+
+  const row = props.payload[0]?.payload
+  if (!row) {
+    return null
+  }
+
+  return (
+    <div className="tooltip">
+      <div className="tooltip-title">{props.label}</div>
+      {(props.mode === 'all' || props.mode === 'income') && row.incomeFact !== null ? (
+        <>
+          <div className="tooltip-line">
+            <span>План доходов</span>
+            <strong>{formatNumber(row.incomePlan)}</strong>
+          </div>
+          <div className="tooltip-line">
+            <span>Факт доходов</span>
+            <strong>{formatNumber(row.incomeFact)}</strong>
+          </div>
+          <div className={`tooltip-line ${deltaClassName(row.incomeDeltaTone)}`}>
+            <span>Разница доходов</span>
+            <strong>{formatSignedNumber(row.incomeDelta ?? 0)}</strong>
+          </div>
+        </>
+      ) : null}
+      {(props.mode === 'all' || props.mode === 'expense') && row.expenseFact !== null ? (
+        <>
+          <div className="tooltip-line">
+            <span>План расходов</span>
+            <strong>{formatNumber(row.expensePlan)}</strong>
+          </div>
+          <div className="tooltip-line">
+            <span>Факт расходов</span>
+            <strong>{formatNumber(row.expenseFact)}</strong>
+          </div>
+          <div className={`tooltip-line ${deltaClassName(row.expenseDeltaTone)}`}>
+            <span>Разница расходов</span>
+            <strong>{formatSignedNumber(row.expenseDelta ?? 0)}</strong>
+          </div>
+        </>
+      ) : null}
     </div>
   )
 }
@@ -1092,6 +1227,56 @@ function buildCombinedChartRows(
   return Array.from(map.values())
 }
 
+type VarianceChartRow = {
+  label: string
+  incomePlan: number
+  incomeFact: number | null
+  incomeFactBase: number
+  incomeFactDelta: number
+  incomeDelta: number | null
+  incomeDeltaTone: DeltaTone
+  expensePlan: number
+  expenseFact: number | null
+  expenseFactBase: number
+  expenseFactDelta: number
+  expenseDelta: number | null
+  expenseDeltaTone: DeltaTone
+}
+
+function buildVarianceChartRows(
+  rows: Array<{
+    label: string
+    incomePlan: number
+    incomeFact: number | null
+    incomeDelta: number | null
+    incomeDeltaTone: DeltaTone
+    expensePlan: number
+    expenseFact: number | null
+    expenseDelta: number | null
+    expenseDeltaTone: DeltaTone
+  }>,
+): VarianceChartRow[] {
+  return rows.map((row) => ({
+    label: row.label,
+    incomePlan: row.incomePlan,
+    incomeFact: row.incomeFact,
+    incomeFactBase:
+      row.incomeFact === null ? 0 : Math.min(row.incomePlan, row.incomeFact),
+    incomeFactDelta:
+      row.incomeFact === null ? 0 : Math.abs(row.incomeFact - row.incomePlan),
+    incomeDelta: row.incomeDelta,
+    incomeDeltaTone: row.incomeDeltaTone,
+    expensePlan: row.expensePlan,
+    expenseFact: row.expenseFact,
+    expenseFactBase:
+      row.expenseFact === null ? 0 : Math.min(row.expensePlan, row.expenseFact),
+    expenseFactDelta:
+      row.expenseFact === null ? 0 : Math.abs(row.expenseFact - row.expensePlan),
+    expenseDelta: row.expenseDelta,
+    expenseDeltaTone: row.expenseDeltaTone,
+  }))
+}
+
 function buildRangeLabel(
   startValue: string | undefined,
   endValue: string | undefined,
@@ -1139,4 +1324,14 @@ function deltaClassName(tone: DeltaTone) {
     return 'delta-bad'
   }
   return 'delta-neutral'
+}
+
+function deltaFillColor(tone: DeltaTone) {
+  if (tone === 'good') {
+    return COLOR_DELTA_GOOD
+  }
+  if (tone === 'bad') {
+    return COLOR_DELTA_BAD
+  }
+  return 'transparent'
 }
